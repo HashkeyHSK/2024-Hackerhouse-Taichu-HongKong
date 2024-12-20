@@ -15,6 +15,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('getInvoice')
+  getInvoice(@Body() body: any): Promise<InvoiceResponse> {
+    return this.appService.getInvoice(body.invoiceId);
+  }
+
   @Post('createInvoice')
   postInvoice(@Body() body: any): Promise<InvoiceResponse> {
     return this.appService.createInvoice(body.amount);

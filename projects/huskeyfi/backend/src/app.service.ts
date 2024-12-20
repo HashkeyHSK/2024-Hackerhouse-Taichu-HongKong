@@ -28,7 +28,7 @@ export class AppService {
     return 'Hello Hashkey!!! 😄';
   }
 
-  makeInvoice(amount: number): Invoice {
+  makeInvoice(amount: string): Invoice {
     return {
       amount: amount.toString(),
       description: 'Bridge between Hashkey and Lightning Network',
@@ -39,13 +39,23 @@ export class AppService {
   }
 
   // https://btcpay.stackstake.io/api/v1/stores/{storeId}/lightning/BTC/invoices
-  async createInvoice(amount: number): Promise<InvoiceResponse> {
+  async createInvoice(amount: string): Promise<InvoiceResponse> {
     const invoice = this.makeInvoice(amount);
     console.log('creating invoice', invoice);
 
     const response = await axios.post(
       `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices`,
       invoice,
+      {
+        headers: this.getAuthHeaders(),
+      },
+    );
+    return response.data;
+  }
+
+  async getInvoice(invoiceId: string): Promise<InvoiceResponse> {
+    const response = await axios.get(
+      `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices/${invoiceId}`,
       {
         headers: this.getAuthHeaders(),
       },

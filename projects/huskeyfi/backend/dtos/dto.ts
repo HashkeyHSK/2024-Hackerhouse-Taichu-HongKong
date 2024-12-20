@@ -1,6 +1,42 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
+export class SendToHashkeyInput {
+  @ApiProperty()
+  @IsString()
+  amount: string;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyAddress: string;
+}
+
+export class SendToHashkeyResponse {
+  @ApiProperty()
+  @IsString()
+  invoiceId: string;
+
+  @ApiProperty()
+  @IsString()
+  BOLT11: string;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyAddress: string;
+
+  @ApiProperty()
+  @IsString()
+  amount: string;
+
+  @ApiProperty()
+  @IsString()
+  LNstatus: string;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyStatus: string;
+}
+
 export class Invoice {
   @ApiProperty()
   @IsString()
@@ -13,12 +49,16 @@ export class Invoice {
   @ApiProperty()
   @IsBoolean()
   descriptionHashOnly: boolean;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyAddress: string;
 }
 
 export class InvoiceResponse {
   @ApiProperty()
   @IsString()
-  id: string;
+  id?: string;
 
   @ApiProperty()
   @IsString()
@@ -26,25 +66,25 @@ export class InvoiceResponse {
 
   @ApiProperty()
   @IsString()
-  BOLT11: string;
+  BOLT11?: string;
 
   @ApiProperty()
   @IsString()
-  paymentHash: string;
+  paymentHash?: string;
 
   @ApiProperty()
   @IsString()
-  paidAt: string | null;
+  paidAt?: string | null;
 
   @ApiProperty()
   @IsNumber()
-  expiresAt: number;
+  expiresAt?: number;
 
   @ApiProperty()
   @IsString()
-  amount: string;
+  amount?: string;
 
   @ApiProperty()
   @IsString()
-  amountReceived: string | null;
+  amountReceived?: string | null;
 }

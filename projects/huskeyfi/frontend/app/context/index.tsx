@@ -28,7 +28,7 @@ createAppKit({
   projectId,
   networks: [hashkeyTestnet],
   defaultNetwork: hashkeyTestnet,
-  metadata: metadata,
+  metadata,
   features: {
     email: false,
     socials: false,
@@ -36,16 +36,16 @@ createAppKit({
   },
 });
 
-function AppKitProvider({
+const AppKitProvider = ({
   children,
   cookies,
 }: {
   children: ReactNode;
   cookies: string | null;
-}) {
+}) => {
   const initialState = cookieToInitialState(
     wagmiAdapter.wagmiConfig as Config,
-    cookies
+    cookies,
   );
 
   return (
@@ -56,6 +56,6 @@ function AppKitProvider({
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
-}
+};
 
 export default AppKitProvider;

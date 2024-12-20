@@ -11,7 +11,7 @@ if (!projectId) {
 
 export const networks = [hashkeyTestnet];
 
-//Set up the Wagmi Adapter (Config)
+// Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({
   storage: createStorage({
     storage: cookieStorage,

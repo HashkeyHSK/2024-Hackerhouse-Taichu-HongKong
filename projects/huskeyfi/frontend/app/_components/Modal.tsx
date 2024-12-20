@@ -3,6 +3,7 @@
 import { useEffect, useRef, MouseEvent, useState } from "react";
 import ModalPortal from "./ModalPortal";
 import useObserve from "../_hooks/useObserve";
+import CloseSmallIcon from "@/public/svgs/CloseSmallIcon";
 
 type ModalProps = {
   title: string;
@@ -43,16 +44,21 @@ const Modal = ({
     <ModalPortal>
       <div
         onClick={handleOutsideClick}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-huskey-background bg-opacity-70"
       >
         <div
           ref={modalRef}
-          className={`transfrom flex scale-100 flex-col rounded-2xl bg-black text-white shadow-lg transition-all ${modalVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+          className={`transfrom flex scale-100 flex-col rounded border border-huskey-primary-400 bg-huskey-box text-white shadow-lg transition-all ${modalVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
         >
-          <h3 className="py-5 text-center text-lg font-semibold text-white">
-            {title}
-          </h3>
-          <div className="px-6 pb-6">{children}</div>
+          <div className="flex items-center justify-between">
+            <h3 className="px-5 py-4 text-base font-medium text-white">
+              {title}
+            </h3>
+            <button onClick={onClose} className="absolute right-5 top-5">
+              <CloseSmallIcon />
+            </button>
+          </div>
+          <div className="px-5 pb-5">{children}</div>
         </div>
       </div>
     </ModalPortal>

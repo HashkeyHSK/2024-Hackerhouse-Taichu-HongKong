@@ -1,0 +1,1 @@
+export const HBTC = "0x0b10a024a7794570206076c614f904b8dfe3b37c";

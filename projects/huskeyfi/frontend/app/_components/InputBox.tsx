@@ -8,6 +8,7 @@ import { config } from "../config";
 import { HBTC } from "../constants/constants";
 import useInput from "../_hooks/useInput";
 import { useSwitch } from "../context/SwitchContext";
+import SendButton from "./SendButton";
 
 const InputBox = () => {
   const { open } = useAppKit();
@@ -88,13 +89,7 @@ const InputBox = () => {
               onChange={onInvoiceChange}
             />
           </div>
-          <button
-            type="button"
-            className="flex w-full justify-center rounded bg-huskey-primary-400 p-4 text-xl disabled:bg-huskey-gray-600 disabled:text-huskey-gray-300"
-            disabled={!isSendEnabled}
-          >
-            Send
-          </button>
+          <SendButton isDisabled={!isSendEnabled} />
         </>
       );
     }
@@ -103,13 +98,7 @@ const InputBox = () => {
         <div className="flex w-full justify-center rounded border border-huskey-gray-600 p-4">
           <p className="text-center">{address}</p>
         </div>
-        <button
-          type="button"
-          className="flex w-full justify-center rounded bg-huskey-primary-400 p-4 text-xl disabled:bg-huskey-gray-600 disabled:text-huskey-gray-300"
-          disabled={!isSendEnabled}
-        >
-          Send
-        </button>
+        <SendButton isDisabled={!isSendEnabled} />
       </>
     );
   };

@@ -2,7 +2,7 @@
 
 import { QRCodeCanvas } from "qrcode.react";
 import Modal from "./Modal";
-import getInvoice from "../_services/getInvoice";
+import getInvoiceTransaction from "../_services/getInvoiceTransaction";
 import { useMemo, useState } from "react";
 import { successToast } from "../_utils/notifications";
 import Timer from "./Timer";
@@ -19,11 +19,11 @@ const LightningInvoiceModal = ({
   const [QRValue, setQRValue] = useState("");
 
   const handleGetInvoice = async () => {
-    const res = await getInvoice({ invoiceId });
+    const res = await getInvoiceTransaction({ invoiceId });
     setQRValue(res.BOLT11);
 
     const timer = setInterval(async () => {
-      const updatedInvoice = await getInvoice({ invoiceId });
+      const updatedInvoice = await getInvoiceTransaction({ invoiceId });
       if (updatedInvoice.hashkeyStatus === "Y") {
         successToast("Payment successful");
         clearInterval(timer);

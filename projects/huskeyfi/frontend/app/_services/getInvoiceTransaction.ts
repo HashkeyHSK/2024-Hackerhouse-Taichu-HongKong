@@ -3,15 +3,17 @@
 import { callApi } from "../_utils/callApi";
 
 type Invoice = {
-  id: string;
+  invoiceId: string;
   BOLT11: string;
+  hashkeyAddress: string;
+  amount: string;
   LNstatus: string;
   hashkeyStatus: string;
 };
 
-const getInvoice = async ({ invoiceId }: { invoiceId: string }) => {
+const getInvoiceTransaction = async ({ invoiceId }: { invoiceId: string }) => {
   const res = await callApi({
-    endpoint: `/getInvoice/${invoiceId}`,
+    endpoint: `/getTransaction/${invoiceId}`,
     method: "GET",
   });
 
@@ -22,4 +24,4 @@ const getInvoice = async ({ invoiceId }: { invoiceId: string }) => {
   return res.data as Invoice;
 };
 
-export default getInvoice;
+export default getInvoiceTransaction;

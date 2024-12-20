@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { InvoiceResponse } from './types';
+import { Invoice, InvoiceResponse } from 'dtos/dto';
 
 // TODO:
 // 1. Make invoice with Amount
@@ -21,8 +21,8 @@ export class AppController {
   }
 
   @Post('createInvoice')
-  postInvoice(@Body() body: any): Promise<InvoiceResponse> {
-    return this.appService.createInvoice(body.amount);
+  postInvoice(@Body() body: Invoice): Promise<InvoiceResponse> {
+    return this.appService.createInvoice(body.amount); // TODO: 숫자로 받고 있음
   }
 
   @Post('webhook')

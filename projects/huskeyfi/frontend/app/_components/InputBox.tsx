@@ -25,7 +25,7 @@ const InputBox = () => {
     setIsValid,
   } = useInput({
     input: "",
-    regex: /^\d*\.?\d*$/,
+    regex: /^\d*$/,
   });
   const { value: invoiceValue, onChange: onInvoiceChange } = useInput({
     input: "",
@@ -42,10 +42,12 @@ const InputBox = () => {
   }, [isConnected, address]);
 
   useEffect(() => {
+    const isAmountValid =
+      isValid && amountValue.trim() !== "" && parseFloat(amountValue) > 0;
     if (isToLN) {
-      setIsSendEnabled(invoiceValue.trim() !== "");
+      setIsSendEnabled(invoiceValue.trim() !== "" && isAmountValid);
     } else {
-      setIsSendEnabled(isValid && amountValue.trim() !== "");
+      setIsSendEnabled(isAmountValid);
     }
   }, [isToLN, invoiceValue, isValid, amountValue]);
 
@@ -61,8 +63,10 @@ const InputBox = () => {
   };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = event.target.value.replace(/,/g, "");
-    const isValidNumber = /^\d*\.?\d*$/.test(rawValue);
+    let rawValue = event.target.value.replace(/,/g, "");
+    rawValue = rawValue.replace(/^0+(?=\d)/, "");
+    const isValidNumber = /^\d*$/.test(rawValue);
+
     if (isValidNumber) {
       setAmountValue(rawValue);
       event.target.value = formatNumberWithCommas(rawValue);
@@ -126,8 +130,8 @@ const InputBox = () => {
           <input
             name="amount"
             type="text"
-            inputMode="decimal"
-            placeholder="0.0"
+            inputMode="numeric"
+            placeholder="0"
             className="w-full bg-transparent text-end outline-none"
             value={formatNumberWithCommas(amountValue)}
             onChange={handleAmountChange}

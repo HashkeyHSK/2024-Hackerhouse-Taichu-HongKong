@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getBalance, GetBalanceReturnType } from "@wagmi/core";
 import { config } from "../config";
 import { HBTC } from "../constants/constants";
+import useInput from "../_hooks/useInput";
 
 const InputBox = () => {
   const { open } = useAppKit();
@@ -13,8 +14,10 @@ const InputBox = () => {
   const [tokenBalance, setTokenBalance] = useState<GetBalanceReturnType | null>(
     null,
   );
-  const [inputValue, setInputValue] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const { value, onChange, isValid } = useInput({
+    input: "",
+    regex: /^\d*\.?\d*$/,
+  });
 
   useEffect(() => {
     if (isConnected && address) {
@@ -24,16 +27,6 @@ const InputBox = () => {
       }).then((balance) => setTokenBalance(balance));
     }
   }, [isConnected, address]);
-
-  const handleInputChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const isValidNumber = /^\d*\.?\d*$/.test(value);
-    setIsValid(isValidNumber);
-    if (isValidNumber) {
-      setInputValue(value);
-    }
-  };
 
   return (
     <div className="flex w-full flex-col gap-5 rounded border border-huskey-gray-600 p-5">
@@ -46,8 +39,8 @@ const InputBox = () => {
             inputMode="decimal"
             placeholder="0.0"
             className="w-full bg-transparent text-end outline-none"
-            value={inputValue}
-            onChange={handleInputChange}
+            value={value}
+            onChange={onChange}
           />
           <p className="ml-7">SAT</p>
         </div>

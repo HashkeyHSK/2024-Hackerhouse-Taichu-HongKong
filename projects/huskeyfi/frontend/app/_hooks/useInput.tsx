@@ -19,7 +19,7 @@ const useInput = ({ input, regex }: useInputProps) => {
     }
   };
 
-  return { value, onChange, setValue, isValid };
+  return { value, onChange, setValue, isValid, setIsValid };
 };
 
 export default useInput;

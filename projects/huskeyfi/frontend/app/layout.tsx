@@ -4,15 +4,10 @@ import "./globals.css";
 import { headers } from "next/headers";
 import AppKitProvider from "./context";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  variable: "--font-pretendard",
+  weight: "100 200 300 400 500 600 700 800 900",
 });
 
 export const metadata: Metadata = {
@@ -28,9 +23,9 @@ const RootLayout = ({
   const cookies = headers().get("cookie");
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${pretendard.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={pretendard.className}
       >
         <AppKitProvider cookies={cookies}>
           <div id="modal" />

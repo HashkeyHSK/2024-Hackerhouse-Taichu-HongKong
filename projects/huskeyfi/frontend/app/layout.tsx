@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { headers } from "next/headers";
 import AppKitProvider from "./context";
+import Navbar from "./_components/Navbar";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -25,7 +26,7 @@ const RootLayout = ({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <body
-        className={pretendard.className}
+        className={`${pretendard.className} flex h-full w-full justify-center bg-huskey-background text-white`}
       >
         <AppKitProvider cookies={cookies}>
           <div id="modal" />

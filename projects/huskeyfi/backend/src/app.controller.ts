@@ -9,4 +9,10 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('webhook')
+  getWebhook(): string {
+    console.log('received webhook');
+    return 'test';
+  }
 }

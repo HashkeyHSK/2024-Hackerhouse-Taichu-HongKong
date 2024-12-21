@@ -9,7 +9,8 @@ By enabling direct BTC integration into HSK’s DeFi and staking ecosystems, Lig
 
 - Frontend: Next.js, TailwindCSS
 - Backend: Nest.js
-- Other: Figma, Adobe Illustrator
+- Contract: Solidity
+- Design: Figma, Adobe Illustrator
 
 ## Demo
 

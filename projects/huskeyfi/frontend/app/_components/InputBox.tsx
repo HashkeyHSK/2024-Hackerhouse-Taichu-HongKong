@@ -210,7 +210,7 @@ const InputBox = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-5 rounded border border-huskey-primary-400 bg-huskey-box p-5">
+    <div className="mt-10 flex w-full flex-col gap-5 rounded border border-huskey-primary-400 bg-huskey-box p-5">
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between">
           <p className="text-xl">Amount</p>

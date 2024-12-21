@@ -8,9 +8,12 @@ const Home = () => {
     <main className="flex w-full flex-col items-center justify-center gap-10">
       <Navbar />
       <SwitchProvider>
-        <div className="flex w-full max-w-[560px] flex-col justify-center gap-10">
+        <div className="flex w-full max-w-[560px] flex-col justify-center">
           <SwitchComponent />
           <InputBox />
+          <div className="ml-auto mr-1 mt-3 text-sm font-medium text-huskey-primary-200">
+            * 1 SAT = 0.00000001 hBTC
+          </div>
         </div>
       </SwitchProvider>
     </main>

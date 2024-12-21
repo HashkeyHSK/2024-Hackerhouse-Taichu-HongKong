@@ -11,23 +11,23 @@
 ## 🚀 概览
 PolyFlow 是首个PayFi 基础设施，通过提供核心产品 **PID(支付 ID)** 作为合规准入的入口，和 **PLP(PolyFlow 流动性池)** 作为资金托管的入口，推动 RWA 与 DeFi 无缝连接，实现从 **“Buy Now, Pay Later”** 到 **“Buy Now, Pay Never”** 的全新金融范式🌟
 
-🌐 **官方网站**：[https://polyflow.tech/](https://polyflow.tech/)
+🌐 **官方网站**：[https://polyflow.tech/](https://polyflow.tech/)  &nbsp;&nbsp;| &nbsp;&nbsp; 🐦 **推特/X**：[https://x.com/Polyflow_PayFi](https://x.com/Polyflow_PayFi)
 
 ---
 
 ## 🛠️ 技术栈
 
 ### 前端：
-- **Next.js**, **TailwindCSS**, **Wagmi**, **RainbowKit**, **TypeScript**
+- **Next.js**、**TailwindCSS**、**Wagmi**、**RainbowKit**、**TypeScript**
 
 ### 后端：
-- **Golang**, **MySQL**, **Redis**
+- **Golang**、**MySQL**、**Redis**
 
 ### 智能合约：
-- **Solidity**, **JavaScript**, **Hardhat**, **Foundry**
+- **Solidity**、**JavaScript**、**Hardhat**、**Foundry**
 
 ### 部署：
-- **Vercel**, **Docker**, **Kubernetes**, **AWS**
+- **Vercel**、**Docker**、**Kubernetes**、**AWS**
 
 ---
 
@@ -41,8 +41,8 @@ PolyFlow 是首个PayFi 基础设施，通过提供核心产品 **PID(支付 ID)
 
 ## 👥 团队
 
-- **Kevin** - 产品经理  
 - **Konit** - 架构师  
+- **Kevin** - 产品经理
 - **Shera** - 生态负责人  
 
 ---
@@ -50,19 +50,24 @@ PolyFlow 是首个PayFi 基础设施，通过提供核心产品 **PID(支付 ID)
 ## 📂 代码
 
 ### 前端：
-_待补充_
+- **Demo_Frontend**: [https://github.com/Polyflow-Protocol/Demo_Frontend](https://github.com/Polyflow-Protocol/Demo_Frontend)
 
 ### 后端：
-_待补充_
+- **Demo_Backend**: [https://github.com/Polyflow-Protocol/Demo_backend](https://github.com/Polyflow-Protocol/Demo_backend)
+- **PLP_SDK**: [https://github.com/Polyflow-Protocol/PLP_go_sdk](https://github.com/Polyflow-Protocol/PLP_go_sdk)
 
 ### 智能合约：
-_待补充_
-
+- **PID** (Payment ID): [https://github.com/Polyflow-Protocol/Demo_PID_Contracts](https://github.com/Polyflow-Protocol/Demo_PID_Contracts)
+- **PLP** (PolyFlow Liquidity Pool): [https://github.com/Polyflow-Protocol/Demo_PLP_Contracts](https://github.com/Polyflow-Protocol/Demo_PLP_Contracts)
+---
+- **提示**：由于 **PLP_SDK, PID, and PLP** 尚未开源，请联系团队获取阅读权限.<br>
+联系人: Konit &nbsp;｜&nbsp; 📧邮件:[konit.block@protonmail.com](konit.block@protonmail.com)
 ---
 
 ## 📑 代码结构
-
-_待补充_
+<div align="center">
+  <img src="./images/code_structure_demo_v1.0.jpg" alt="Code Structure">
+</div>
 
 ---
 

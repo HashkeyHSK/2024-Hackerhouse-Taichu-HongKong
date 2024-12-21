@@ -4,7 +4,7 @@
 
 ---
 
-🌐 **Language**: [English](./README.md) | [中文](./README_zh.md)  
+🌐 **Language**: [English](./README.md)   | [中文](./README_zh.md)  
 
 ---
 
@@ -16,23 +16,23 @@ PolyFlow is the first PayFi infrastructure designed to seamlessly connect **RWA*
 
 PolyFlow pioneers a new financial paradigm, evolving from "Buy Now, Pay Later" to **"Buy Now, Pay Never"**. 🌟
 
-🌐 **Official Website**: [https://polyflow.tech/](https://polyflow.tech/)
+🌐 **Official Website**: [https://polyflow.tech/](https://polyflow.tech/) &nbsp;&nbsp;| &nbsp;&nbsp; 🐦 **Twitter/X**：[https://x.com/Polyflow_PayFi](https://x.com/Polyflow_PayFi) 
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend:
-- **Next.js**, **TailwindCSS**, **Wagmi**, **RainbowKit**, **TypeScript**
+- **Next.js**、**TailwindCSS**、**Wagmi**、**RainbowKit**、**TypeScript**
 
 ### Backend:
-- **Golang**, **MySQL**, **Redis**
+- **Golang**、**MySQL**、**Redis**
 
 ### Smart Contract:
-- **Solidity**, **JavaScript**, **Hardhat**, **Foundry**
+- **Solidity**、**JavaScript**、**Hardhat**、**Foundry**
 
 ### Deployment:
-- **Vercel**, **Docker**, **Kubernetes**, **AWS**
+- **Vercel**、**Docker**、**Kubernetes**、**AWS**
 
 ---
 
@@ -46,28 +46,35 @@ PolyFlow pioneers a new financial paradigm, evolving from "Buy Now, Pay Later" t
 
 ## 👥 Team
 
-- **Kevin** - Product Manager  
 - **Konit** - Architect  
+- **Kevin** - Product Manager
 - **Shera** - Head of Ecosystem  
 
 ---
 
 ## 📂 Code
 
+
 ### Frontend:
-_TBA_
+- **Demo_Frontend**: [https://github.com/Polyflow-Protocol/Demo_Frontend](https://github.com/Polyflow-Protocol/Demo_Frontend)
 
 ### Backend:
-_TBA_
+- **Demo_Backend**: [https://github.com/Polyflow-Protocol/Demo_backend](https://github.com/Polyflow-Protocol/Demo_backend)
+- **PLP_SDK**: [https://github.com/Polyflow-Protocol/PLP_go_sdk](https://github.com/Polyflow-Protocol/PLP_go_sdk)
+
 
 ### Smart Contract:
-_TBA_
-
+- **PID** (Payment ID): [https://github.com/Polyflow-Protocol/Demo_PID_Contracts](https://github.com/Polyflow-Protocol/Demo_PID_Contracts)
+- **PLP** (PolyFlow Liquidity Pool): [https://github.com/Polyflow-Protocol/Demo_PLP_Contracts](https://github.com/Polyflow-Protocol/Demo_PLP_Contracts)
+---
+- **HINT**： The **PLP_SDK, PID, and PLP** Contract codebases are not yet publicly accessible. Please contact the team to request access permissions.<br>
+Contact: Konit &nbsp;｜&nbsp; 📧Email:[konit.block@protonmail.com](konit.block@protonmail.com)
 ---
 
 ## 📑 Code Structure
-
-_TBA_
+<div align="center">
+  <img src="./images/code_structure_demo_v1.0.jpg" alt="Code Structure">
+</div>
 
 ---
 

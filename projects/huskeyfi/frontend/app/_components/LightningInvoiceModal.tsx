@@ -8,6 +8,7 @@ import { successToast } from "../_utils/notifications";
 import Timer from "./Timer";
 import CopyClipBoardButton from "./CopyClipBoardButton";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type LightningInvoiceModalProps = {
   invoiceId: string;
@@ -55,8 +56,16 @@ const LightningInvoiceModal = ({
         {QRValue && (
           <div className="mb-2 mt-2 flex flex-col">
             {LNstatus === "Y" ? (
-              <div className="mx-auto text-sm">
-                Waiting for transaction confirmation
+              <div className="mx-auto flex items-center gap-1">
+                <Image
+                  src="/images/loading.gif"
+                  width={24}
+                  height={24}
+                  alt="loading"
+                />
+                <div className="text-sm">
+                  Waiting for transaction confirmation
+                </div>
               </div>
             ) : (
               <>

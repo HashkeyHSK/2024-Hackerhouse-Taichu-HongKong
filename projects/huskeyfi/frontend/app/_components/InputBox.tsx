@@ -17,6 +17,9 @@ import { errorToast } from "../_utils/notifications";
 import hashkeyToLN from "../_services/hashkeyToLN";
 import ContinueInWalletModal from "./ContinueInWalletModal";
 import HashkeyToLNModal from "./HashkeyToLNModal";
+import { useAtom } from "jotai";
+import { TransactionHashAtom } from "../_store";
+import Link from "next/link";
 
 const InputBox = () => {
   const { open } = useAppKit();
@@ -26,6 +29,7 @@ const InputBox = () => {
     null,
   );
   const [isSendEnabled, setIsSendEnabled] = useState(false);
+  const [transactionHash, setTransactionHash] = useAtom(TransactionHashAtom);
 
   const {
     value: amountValue,
@@ -83,6 +87,8 @@ const InputBox = () => {
   const [invoiceId, setInvoiceId] = useState("");
 
   const handleOpenLightningInvoiceModal = async () => {
+    setTransactionHash(undefined);
+
     const res = await createInvoice({
       amount: amountValue,
       hashkeyAddress: address as string,
@@ -115,6 +121,8 @@ const InputBox = () => {
 
   const handleHashkeyToLN = async () => {
     try {
+      setTransactionHash(undefined);
+
       setIsContinueInWalletModalOpen(true);
 
       const hashkeyTxId = await writeContract(config, {
@@ -123,6 +131,8 @@ const InputBox = () => {
         functionName: "transfer",
         args: [LN_BRIDGE, parseUnits(amountValue, 10).toString()],
       });
+
+      setTransactionHash(hashkeyTxId);
 
       const res = await hashkeyToLN({
         lnAddress: invoiceValue,
@@ -258,6 +268,20 @@ const InputBox = () => {
           </button>
         )}
       </div>
+      {transactionHash && (
+        <div className="flex items-center justify-between gap-1">
+          <div className="max-w-[350px] overflow-hidden text-ellipsis text-nowrap">
+            {`Tx Hash: ${transactionHash}`}
+          </div>
+          <Link
+            className="text-huskey-primary-400 underline"
+            href={`https://hashkeychain-testnet-explorer.alt.technology/tx/${transactionHash}`}
+            target="_blank"
+          >
+            View on Block Explorer
+          </Link>
+        </div>
+      )}
       {isLightningInvoiceModalOpen && (
         <LightningInvoiceModal
           invoiceId={invoiceId}

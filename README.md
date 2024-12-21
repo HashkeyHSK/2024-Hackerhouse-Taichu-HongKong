@@ -22,28 +22,16 @@ PolyFlow pioneers a new financial paradigm, evolving from "Buy Now, Pay Later" t
 ## 🛠️ Tech Stack
 
 ### Frontend:
-- **Next.js**
-- **TailwindCSS**
-- **Wagmi**
-- **RainbowKit**
-- **TypeScript**
+- **Next.js**, **TailwindCSS**, **Wagmi**, **RainbowKit**, **TypeScript**
 
 ### Backend:
-- **Golang**
-- **MySQL**
-- **Redis**
+- **Golang**, **MySQL**, **Redis**
 
 ### Smart Contract:
-- **Solidity**
-- **JavaScript**
-- **Hardhat**
-- **Foundry**
+- **Solidity**, **JavaScript**, **Hardhat**, **Foundry**
 
 ### Deployment:
-- **Vercel**
-- **Docker**
-- **Kubernetes**
-- **AWS**
+- **Vercel**, **Docker**, **Kubernetes**, **AWS**
 
 ---
 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Address Analysis</title>
+    <script src="https://unpkg.com/vis-network@9.1.0/dist/vis-network.min.js"></script>
+    <style>
+        /* 父容器 */
+        #container {
+            display: flex; /* 启用 Flex 布局 */
+            width: 100%;
+            height: 90vh; /* 占满视口高度 */
+        }
+
+        /* 左侧信息面板 */
+        #address_info {
+            flex: 1; /* 占据一半 */
+            background-color: #f4f4f4;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        /* 右侧网络图 */
+        #mynetwork {
+            flex: 1; /* 占据一半 */
+            border-left: 1px solid #ccc; /* 分隔线 */
+            background-color: #fff;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>地址合规分析</h1>
+    <input 
+        type="text" 
+        id="address" 
+        placeholder="Enter wallet address" 
+        style="width: 400px; height: 50px; font-size: 18px; padding: 10px; border: 2px solid #4CAF50; border-radius: 10px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);" 
+    />
+
+    <button 
+        onclick="loadGraph()" 
+        style="height: 50px; font-size: 18px; padding: 0 20px; color: white; background-color: #4CAF50; border: none; border-radius: 10px; cursor: pointer; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+        Analyze
+    </button>
+    <!-- 两个面板 -->
+    <div id="container">
+        <div id="address_info">
+            <h2>Address Information</h2>
+            <p>Details about the wallet address will appear here...</p>
+        </div>
+        <div id="mynetwork"></div>
+    </div>
+
+    <script>
+        let network;
+
+        // 模拟加载网络图的函数
+        async function loadGraph() {
+            // 定义节点数据
+            const address = document.getElementById("address").value;
+            const response = await fetch(`/api/address?address=${address}`);
+            const data_json = await response.json();
+            //alert(data_json)
+
+            if (data_json.error) {
+                alert("Error: " + data.error);
+                return;
+            }
+            // 定义节点和边的数据
+            const nodes = new vis.DataSet(data_json.nodes);
+            const edges = new vis.DataSet(data_json.edges);
+
+            // 创建网络图的容器
+            const container = document.getElementById("mynetwork");
+
+            // 配置网络图选项
+            const data = {
+                nodes: nodes,
+                edges: edges,
+            };
+
+            const options = {
+                nodes: {
+                    shape: "dot",
+                    size: 14,
+                    font: {
+                        size: 12,
+                        color: "#333",
+                    },
+                    borderWidth: 1,
+                },
+                edges: {
+                    width: 5,
+                    arrows: "to",
+                    font: {
+                        size: 5,
+                        align: "middle",
+                    },
+                    color: "#848484",
+                    smooth: true,
+                },
+                interaction: {
+                    hover: true,
+                },
+                physics: {
+                    enabled: true,
+                },
+            };
+
+            // 初始化网络图
+            network = new vis.Network(container, data, options);
+
+            // 添加点击事件监听
+            network.on("click", function (params) {
+                const addressInfo = document.getElementById("address_info");
+
+                // 检查点击的节点
+                if (params.nodes.length > 0) {
+                    const nodeId = params.nodes[0];
+                    const node = nodes.get(nodeId);
+                    addressInfo.innerHTML = `
+                        <h2>Node Information</h2>
+                        <p><strong>address:</strong> ${node.id}</p>
+                        <p><strong>transactions_count:</strong> ${node.transactions_count}</p>
+                        <p><strong>token_transfers_count:</strong> ${node.token_transfers_count}</p>
+                        <p><strong>gas_used:</strong> ${node.gas_used}</p>
+                        <p><strong>tag:</strong> ${node.tag}</p>
+                    `;
+                } 
+                // 检查点击的边
+                else if (params.edges.length > 0) {
+                    const edgeId = params.edges[0];
+                    const edge = edges.get(edgeId);
+                    addressInfo.innerHTML = `
+                        <h2>Edge Information</h2>
+                        <p><strong>From:</strong> ${edge.from}</p>
+                        <p><strong>To:</strong> ${edge.to}</p>
+                        <p><strong>Transaction:</strong> ${edge.label}</p>
+                    `;
+                } 
+                // 如果没有点击节点或边
+                else {
+                    addressInfo.innerHTML = `
+                        <h2>Address Information</h2>
+                        <p>Click on a node or edge to view its details here...</p>
+                    `;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

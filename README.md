@@ -1,80 +1,42 @@
-# HackerHouse Projects Showcase
-
-
-Welcome to the HackerHouse Projects Showcase! This repository features all the amazing projects built during HackerHouse.
-
-## How to Submit Your Project
-
-1. Fork this repository
-2. Create your project folder under `projects`
-3. Add your project documentation (using the template below)
-4. Submit a Pull Request
-5. Wait for on-site review
-
-## Project Documentation Template
-
-Create a `README.md` in your project folder using this template:
-
-```markdown
-# Project Name
+# TrustLink
 
 ## Overview
-[Describe your project in 2-3 sentences - what it does and what problem it solves]
+Designed to help blockchain entrepreneurs and investors avoid risk and ensure compliance. Our mission is to serve 10,000 Web3 organizations and 100,000 cryptocurrency investors over the next decade by lowering the compliance barrier to entry. Through our flagship product, TrustLink, we provide cutting-edge technology services such as holographic on-chain monitoring, AI risk assessment, adaptive early warning, natural language query, and project precision airdrop to provide real-time data analysis and security compliance support for project parties on HashKey Chain.
 
 ## Tech Stack
-- Frontend: [List frontend technologies]
-- Backend: [List backend technologies]
-- Other: [Any other relevant technologies]
+- Frontend: VUE, HTML, JS
+- Backend: Python
+- Other: postgresql
 
 ## Demo
-- Demo Video: [YouTube link]
-- Project Deck: [Google Slides link]
+- Demo Video: https://youtu.be/HKVW9Kb6ZPw
+- Project Deck: https://drive.google.com/drive/folders/1kfUQ_mjtFe6p2mpAI2Q_5EW1_0_ncWqG
 
 ## Team
-- Member A - Role
-- Member B - Role
-- Member C - Role
+- Tan Shuilian - CEO,used to work in Tencent web3 department, responsible for data, algorithm, wallet and other businesses.
+- Sheng Hui - CTO,used to work for Tencent and OKX, responsible for public chain development.
+- Jerry Zh - CMO,worked at Cloud Coin Exchange, the largest digital currency exchange in China, where he was responsible for operations.
+- Archie - CPO,worked in Tencent's risk control department as a senior engineer; worked as a data investment research analyst at Banyan Tree Capital.
+
+
+
+# Project setup
+## Frontend
+```
+cd project/frontend
+pnpm install
 ```
 
-## Example
-
-```markdown
-# AI Writing Assistant
-
-## Overview
-An intelligent writing assistant powered by GPT-4, helping users generate high-quality content quickly. Supports multiple writing styles and adapts content based on user feedback.
-
-## Tech Stack
-- Frontend: React, TailwindCSS
-- Backend: Node.js, Express
-- AI: OpenAI API, Langchain
-- Deployment: Docker, AWS
-
-## Demo
-- Demo Video: https://youtube.com/watch?v=...
-- Project Deck: https://docs.google.com/presentation/d/...
-
-## Team
-- John Doe - Full Stack Developer
-- Jane Smith - AI Engineer
-- Mike Johnson - Product Designer
+### Compiles and hot-reloads for development
+```
+pnpm run serve
 ```
 
-- The submission deadline is 10:00 on the 22th, with the following submission requirements:
-    - Project Code
-        - Submit code for review and testing. You need to include at least one open source license from the following:
-        - MIT - https://opensource.org/licenses/MIT
-        - Apache 2.0 - https://opensource.org/licenses/Apache-2.0
-        - 3-Clause BSD - https://opensource.org/licenses/BSD-3-Clause
-        Detailed submission rules will be announced later.
-        We suggest developers focus on creativity and MVP implementation during the Hackerhouse. Time is precious, and you can consider project and code completeness and detailed architecture design later.
-    - Deck
-        - Brief project description, team introduction, etc.
-    - Live Demo & Video (Optional)
+## Backend
+```
+cd project/backend
+python app.py
+```
 
-## Notes
-- Ensure your documentation follows the template format
-- All links should be accessible
-- Team member information should be complete and accurate
-
-Good luck with your Demo Day! 🚀
+## visit
+http://127.0.0.1:8081/

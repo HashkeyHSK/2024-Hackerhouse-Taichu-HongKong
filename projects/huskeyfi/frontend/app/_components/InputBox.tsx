@@ -3,12 +3,7 @@
 import { useAppKit } from "@reown/appkit/react";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
-import {
-  getBalance,
-  GetBalanceReturnType,
-  sendTransaction,
-  writeContract,
-} from "@wagmi/core";
+import { getBalance, GetBalanceReturnType, writeContract } from "@wagmi/core";
 import { config } from "../config";
 import { HBTC, LN_BRIDGE } from "../constants/constants";
 import useInput from "../_hooks/useInput";
@@ -147,6 +142,32 @@ const InputBox = () => {
     }
   };
 
+  const handleUpdateTokenBalance = () => {
+    if (isConnected && address) {
+      setTimeout(() => {
+        getBalance(config, {
+          address,
+          token: HBTC,
+        }).then((balance) => setTokenBalance(balance));
+      }, 5000); // Wait for update
+    }
+  };
+
+  const handleCloseLightningInvoiceModal = () => {
+    setIsLightningInvoiceModalOpen(false);
+    handleUpdateTokenBalance();
+  };
+
+  const handleCloseContinueInWalletModal = () => {
+    setIsContinueInWalletModalOpen(false);
+    handleUpdateTokenBalance();
+  };
+
+  const handleCloseHashkeyToLNModal = () => {
+    setIsHashkeyToLNModalOpen(false);
+    handleUpdateTokenBalance();
+  };
+
   const renderInputField = () => {
     if (isToLN) {
       return (
@@ -240,19 +261,14 @@ const InputBox = () => {
       {isLightningInvoiceModalOpen && (
         <LightningInvoiceModal
           invoiceId={invoiceId}
-          onClose={() => setIsLightningInvoiceModalOpen(false)}
+          onClose={handleCloseLightningInvoiceModal}
         />
       )}
       {isContinueInWalletModalOpen && (
-        <ContinueInWalletModal
-          onClose={() => setIsContinueInWalletModalOpen(false)}
-        />
+        <ContinueInWalletModal onClose={handleCloseContinueInWalletModal} />
       )}
       {isHashkeyToLNModalOpen && (
-        <HashkeyToLNModal
-          id={txId}
-          onClose={() => setIsHashkeyToLNModalOpen(false)}
-        />
+        <HashkeyToLNModal id={txId} onClose={handleCloseHashkeyToLNModal} />
       )}
     </div>
   );

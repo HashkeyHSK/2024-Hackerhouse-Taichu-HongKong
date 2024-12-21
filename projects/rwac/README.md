@@ -9,8 +9,8 @@ Fintech is changing day by day, and RWA's new technology not only empowers digit
 
 ## Demo
 - Demo Video: https://youtu.be/2NH8W5BebYo
-- Demo: https://www.chinanft.hk/#/storeDetail?supplierId=616eaaaae73a47a0a51bbc2aa96fb773
+- Demo: https://www.rwa.ltd/
 
 ## Team
-- feike - Shucang CEO
-- Tony Fu - NFTChina CEO
+- Feike RWA.ltd founder
+- Tony Fu RWA.ltd co-founder

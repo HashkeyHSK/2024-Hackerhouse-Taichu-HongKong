@@ -37,6 +37,50 @@ export class SendToHashkeyResponse {
   hashkeyStatus: string;
 }
 
+export class HashkeyToLNInput {
+  @ApiProperty()
+  @IsString()
+  lnAddress: string;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyAddress: string;
+
+  @ApiProperty()
+  @IsString()
+  amount: string;
+
+  @ApiProperty()
+  @IsString()
+  hashkeyTxId: string;
+}
+
+export class LNReceivedPaymentInput {
+  @ApiProperty()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsString()
+  BOLT11: string;
+
+  @ApiProperty()
+  @IsString()
+  amount: string;
+
+  @ApiProperty()
+  @IsNumber()
+  maxFeePercent?: string;
+
+  @ApiProperty()
+  @IsString()
+  maxFeeFlat?: string;
+
+  @ApiProperty()
+  @IsNumber()
+  sendTimeout?: number;
+}
+
 export class Invoice {
   @ApiProperty()
   @IsString()

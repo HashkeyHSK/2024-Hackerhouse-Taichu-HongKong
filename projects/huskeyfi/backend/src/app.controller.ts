@@ -1,11 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Invoice, InvoiceResponse } from 'dtos/dto';
+import { HashkeyToLNInput, Invoice, InvoiceResponse } from 'dtos/dto';
 import { LNToHashkeyTransaction } from './entities/LNToHashkeyTransaction.entity';
-
-// TODO:
-// 1. Make invoice with Amount
-// 2. Post webhook
 
 @Controller()
 export class AppController {
@@ -24,6 +20,11 @@ export class AppController {
     return this.appService.getTransaction(invoiceId);
   }
 
+  @Get('getTransactionById/:id')
+  getTransactionById(@Param('id') id: string): Promise<LNToHashkeyTransaction> {
+    return this.appService.getTransactionById(id);
+  }
+
   // get transaction from sqlite
   @Get('getTransactions')
   getTransactions(): Promise<LNToHashkeyTransaction[]> {
@@ -38,6 +39,11 @@ export class AppController {
   @Post('createInvoice')
   postInvoice(@Body() body: Invoice): Promise<InvoiceResponse> {
     return this.appService.createInvoice(body.amount, body.hashkeyAddress);
+  }
+
+  @Post('hashkeyToLN')
+  postHashkeyToLN(@Body() body: HashkeyToLNInput): Promise<string> {
+    return this.appService.hashkeyToLN(body);
   }
 
   // @Post('sendToHashkey')

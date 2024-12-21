@@ -2,6 +2,7 @@ import { Injectable, Global } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
 import { LNToHashkeyTransaction } from './entities/LNToHashkeyTransaction.entity';
+import { randomUUID } from 'crypto';
 
 @Global()
 @Injectable()
@@ -12,18 +13,28 @@ export class LNToHashkeyTransactionService {
   ) {}
 
   findAll(
-    where: FindOptionsWhere<LNToHashkeyTransaction>,
+    where?: FindOptionsWhere<LNToHashkeyTransaction>,
   ): Promise<LNToHashkeyTransaction[]> {
-    return this.LNToHashkeyTransactionRepository.find({ where });
+    return this.LNToHashkeyTransactionRepository.find(where ? { where } : {});
   }
 
-  findOne(invoiceId: string): Promise<LNToHashkeyTransaction> {
+  findOneInvoiceId(invoiceId: string): Promise<LNToHashkeyTransaction> {
     return this.LNToHashkeyTransactionRepository.findOneBy({ invoiceId });
   }
 
-  updateLNStatus(invoiceId: string, LNstatus: string): Promise<UpdateResult> {
-    return this.LNToHashkeyTransactionRepository.update(invoiceId, {
+  findOneById(id: string): Promise<LNToHashkeyTransaction> {
+    return this.LNToHashkeyTransactionRepository.findOneBy({ id });
+  }
+
+  updateLNStatus(id: string, LNstatus: string): Promise<UpdateResult> {
+    return this.LNToHashkeyTransactionRepository.update(id, {
       LNstatus,
+    });
+  }
+
+  updateHashkeyTx(id: string, hashkeyTx: string): Promise<UpdateResult> {
+    return this.LNToHashkeyTransactionRepository.update(id, {
+      hashkeyTx,
     });
   }
 
@@ -40,17 +51,19 @@ export class LNToHashkeyTransactionService {
     await this.LNToHashkeyTransactionRepository.delete(invoiceId);
   }
 
-  async create(
-    invoiceId: string,
-    BOLT11: string,
-    hashkeyAddress: string,
-    amount: string,
-  ): Promise<void> {
+  async create(data: LNToHashkeyTransaction): Promise<string> {
+    const id = randomUUID();
+
     await this.LNToHashkeyTransactionRepository.save({
-      invoiceId,
-      BOLT11,
-      hashkeyAddress,
-      amount,
+      id,
+      ...data,
     });
+
+    return id;
+  }
+
+  // destory all data
+  async destoryAll(): Promise<void> {
+    await this.LNToHashkeyTransactionRepository.clear();
   }
 }

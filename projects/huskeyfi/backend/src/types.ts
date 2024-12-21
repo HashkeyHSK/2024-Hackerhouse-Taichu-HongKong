@@ -7,12 +7,12 @@ export interface Invoice {
 }
 
 export interface InvoiceResponse {
-  id: string;
+  id?: string;
   status: string;
-  BOLT11: string;
-  paymentHash: string;
-  paidAt: string | null;
-  expiresAt: number;
-  amount: string;
-  amountReceived: string | null;
+  BOLT11?: string;
+  paymentHash?: string;
+  paidAt?: string | null;
+  expiresAt?: number;
+  amount?: string;
+  amountReceived?: string | null;
 }

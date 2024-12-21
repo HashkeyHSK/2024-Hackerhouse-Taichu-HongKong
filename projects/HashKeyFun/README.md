@@ -1,64 +1,95 @@
-# HashKeyFun
-
-## Overview
-## Our Project: A Meme Coin Platform Built on the HashKey Chain
-
-Our project is an innovative meme coin platform built on the HashKey Chain. A similar example in another ecosystem is **Pumpfun** on the Solana chain. Pumpfun provides liquidity to numerous meme coins, facilitating trading in the Solana chain ecosystem and attracting massive **TVL (Total Value Locked)**. This has significantly boosted the economic vibrancy of the ecosystem.
-
-However, Pumpfun has one notable drawback: there is a possibility that obscene or violent meme content could be introduced to the platform. Such content can undermine the credibility of the project and harm the chain’s ecosystem.
+# **HashKeyFun**  
+*Building a Safer Meme Coin Platform on the HashKey Chain*
 
 ---
 
-### Problem Solved: Decentralized Token Factory
-
-To address this issue, we designed a Token Factory system that combines the advantages of centralized and decentralized approaches. This system incorporates a centralized review phase to evaluate the appropriateness of content, after which it operates within a decentralized ecosystem. Through this method, we ensure both the reliability and freedom of our platform.
-
----
-
-### Implementation Details
-
-1. **AI-Based Obscenity and Violence Detection System**  
-   We built an AI-based verification system that automatically evaluates the obscenity and violence level of content. This AI utilizes the following technologies:  
-
-   - **NLP Algorithms**: Models from the BERT and GPT families are employed to analyze text content, identifying obscene language and violent expressions.
-
-   The AI verification system quantifies obscenity and violence, assigning a score. If the score exceeds a certain threshold, the content is automatically rejected. Through this, inappropriate content is initially blocked.
-
-2. **Administrator Review and Final Approval**  
-   Content rejected by the AI is forwarded to an administrator for an additional review process. Even the content deemed appropriate by the AI must ultimately receive the administrator’s approval before it can be indexed on the platform’s marketplace. This cooperative structure between AI and human oversight further enhances the reliability and fairness of the system.
+## **Overview**  
+Our project is an innovative meme coin platform built on the **HashKey Chain**, similar to how **Pumpfun** operates on the Solana chain. While Pumpfun has significantly boosted TVL in the Solana ecosystem, it lacks content safeguards against obscene or violent meme content. **HashKeyFun** addresses this by employing a **dual-layer content verification system**.
 
 ---
 
-### Differentiation from Pumpfun
-
-While Pumpfun contributes to its ecosystem by providing liquidity and facilitating transactions, it lacks a content verification framework, which raises concerns about the potential influx of obscene or violent meme content. This can be a risk factor that undermines the platform’s credibility.
-
-In contrast, our platform sets itself apart in the following ways:
-
-- **Content Verification System**: A dual-layer verification structure, combining AI checks and administrator reviews, ensures safety.
-- **Decentralized Ecosystem**: Even after content passes the verification process, it is issued and traded freely in a decentralized structure.
-- **Contribution to the HashKey Chain**: This system enhances the credibility of the HashKey Chain, improves user experience, and ultimately brings more liquidity and activity to the ecosystem.
+### **Key Differentiators**  
+1. **Content Verification System**  
+   - **AI-Based Checks**: Initial filter for obscenity/violence  
+   - **Administrator Review**: Human oversight for final approval  
+2. **Decentralized Ecosystem**  
+   - Free issuance & trading after verification  
+3. **Enhanced Ecosystem Credibility**  
+   - Builds trust, increases liquidity, and fosters active user participation on the **HashKey Chain**  
 
 ---
 
-### Conclusion
+## **Problem Solved: Decentralized Token Factory**  
+Pumpfun’s shortcoming lies in the absence of a content verification framework. This can tarnish the platform’s and the chain’s credibility due to potentially inappropriate content.  
 
-Our meme coin platform provides an innovative and secure framework for the HashKey Chain ecosystem. By combining AI-based verification with human judgment, we secure the platform’s reliability and fairness, while seamlessly integrating the advantages of both decentralization and centralization.
+**HashKeyFun** solves this by blending the strengths of both centralized and decentralized approaches:
+- **Centralized Review Phase**: Quick, accountable approvals  
+- **Fully Decentralized Execution**: Ensures transparency, security, and user autonomy  
 
-Through this, we offer long-term value to the HashKey Chain ecosystem—including increased TVL, transaction activation, and heightened user trust. This goes beyond merely facilitating meme coin trading; it plays a crucial role in cultivating a healthier and more sustainable chain ecosystem.
+---
 
+## **Implementation Details**  
 
-## Tech Stack
-- Frontend: Nextjs, Ethersjs
-- Backend: Fast Api, Flask, Lang Chain
-- Other: truffle, solidity
+### 1. **AI-Based Obscenity and Violence Detection**  
+- **NLP Algorithms**:  
+  Utilizes **BERT** and **GPT** family models to analyze text content for obscene language or violent expressions.  
+- **Scoring System**:  
+  Obscenity/violence is quantified; if a threshold is exceeded, content is automatically rejected.  
 
-## Demo
-- Demo Video: [YouTube link]
-- Project Deck: [Google Slides link]
-- Source Code: [Github Organization](https://github.com/orgs/HashKeyFun/repositories)
+### 2. **Administrator Review & Final Approval**  
+- **Second Layer of Verification**:  
+  Content flagged by the AI is manually reviewed.  
+- **Human Insight**:  
+  Even content deemed safe by AI requires an administrator's stamp of approval prior to listing.  
 
-## Team
-- HYEONUK Kim - Chain Engineer
-- HYEONU LEE - Front End Engineer
-- HYEONGJIN LEE - Back End Engineer
+This **hybrid approach** delivers both **reliability** (through human oversight) and **efficiency** (through AI automation).
+
+---
+
+## **How We Differ From Pumpfun**  
+While **Pumpfun** enhances liquidity, it overlooks content safety, risking platform credibility. By contrast, **HashKeyFun** provides:
+
+- **Dual-Layer Verification**: Combining AI and human checks  
+- **Preservation of Decentralization**: Tokens are still issued/traded freely post-verification  
+- **Long-Term Ecosystem Value**: Encourages higher **TVL**, user trust, and overall sustainability  
+
+---
+
+## **Conclusion**  
+**HashKeyFun** offers an innovative and secure meme coin framework on the **HashKey Chain**. By combining **AI-based verification** with **human oversight**, we ensure the platform’s **reliability** and **fairness** while retaining the **advantages of decentralization**.
+
+In doing so, we contribute to the HashKey Chain ecosystem by:
+- Boosting **TVL**  
+- Driving **transaction growth**  
+- Enhancing **user trust**  
+
+Our ultimate goal? **Cultivate a healthier and more sustainable chain ecosystem**, far beyond just facilitating meme coin trading.
+
+---
+
+## **Tech Stack**  
+| **Area**   | **Technologies**                         |
+|:----------:|:----------------------------------------:|
+| **Frontend** | **Next.js**, **Ethers.js**              |
+| **Backend**  | **FastAPI**, **Flask**, **LangChain**   |
+| **Others**   | **Truffle**, **Solidity**               |
+
+---
+
+## **Demo**  
+- **Demo Video**: [*YouTube link*]  
+- **Project Deck**: [*Google Slides link*](https://docs.google.com/presentation/d/1ppxDpwhQGZC7bMloAjnJ6ILskskPAVceNOTqLpvCUu4/edit#slide=id.g3262298bb7d_2_100)  
+- **Source Code**: [*Github Organization*](https://github.com/orgs/HashKeyFun/repositories)  
+
+---
+
+## **Team**  
+| **Name**         | **Role**              |
+|------------------|-----------------------|
+| **Hyeonuk Kim**  | Chain Engineer       |
+| **Hyeonu Lee**   | Frontend Engineer    |
+| **Hyeongjin Lee**| Backend Engineer     |
+
+---
+
+> **Ready to HashKeyFun?** Join us in shaping a secure and vibrant meme coin platform on the HashKey Chain!

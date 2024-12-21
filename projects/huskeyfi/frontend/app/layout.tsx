@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import AppKitProvider from "./context";
 import Navbar from "./_components/Navbar";
 import { ToastContainer } from "react-toastify";
+import JotaiProvider from "./_providers/JotaiProvider";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -30,14 +31,16 @@ const RootLayout = ({
         className={`${pretendard.className} flex h-full w-full justify-center bg-huskey-background text-white`}
       >
         <AppKitProvider cookies={cookies}>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            pauseOnFocusLoss={false}
-            theme="dark"
-          />
-          <div id="modal" />
-          {children}
+          <JotaiProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              pauseOnFocusLoss={false}
+              theme="dark"
+            />
+            <div id="modal" />
+            {children}
+          </JotaiProvider>
         </AppKitProvider>
       </body>
     </html>

@@ -33,12 +33,13 @@ export class InvoiceStatusUpdaterService {
       LNstatus: 'N',
       fromNetwork: 'L',
       toNetwork: 'H',
+      hashkeyStatus: 'N',
     });
 
     // Update all found transactions to Processing status
     for (const transaction of transactions) {
       await this.transactionRepository.update(transaction.id, {
-        hashkeyStatus: 'P',
+        LNstatus: 'P',
       });
     }
 
@@ -55,28 +56,25 @@ export class InvoiceStatusUpdaterService {
           await this.transactionRepository.update(transaction.id, {
             LNstatus: 'Y',
           });
-
-          // Mint equivalent hBTC to user's Hashkey address
-          const tx = await this.appService.sendToHashkeyAddress(
-            transaction.amount,
-            transaction.hashkeyAddress,
-          );
-
-          this.logger.log('tx', tx);
-
-          // Record Hashkey transaction hash
-          await this.transactionRepository.update(transaction.id, {
-            hashkeyTx: tx,
-          });
         } else {
           this.logger.log('invoice not paid', transaction.invoiceId);
+          await this.transactionRepository.update(transaction.id, {
+            LNstatus: 'N',
+          });
         }
       } catch (error) {
-        this.logger.error('Expired invoice', transaction.invoiceId);
-        // Mark invoice as expired in database
-        await this.transactionRepository.update(transaction.id, {
-          LNstatus: 'Expired',
-        });
+        if (error.response.status === 404) {
+          this.logger.error('Expired invoice', transaction.invoiceId);
+          // Mark invoice as expired in database
+          await this.transactionRepository.update(transaction.id, {
+            LNstatus: 'Expired',
+          });
+        } else {
+          this.logger.error('Error getting invoice', error);
+          await this.transactionRepository.update(transaction.id, {
+            LNstatus: 'E',
+          });
+        }
       }
     }
   }
@@ -97,7 +95,7 @@ export class InvoiceStatusUpdaterService {
    * - Invalid address format: Updates status to 'Error' ('E')
    * - Minting failure: Logs error but keeps status as 'Processing' for retry
    */
-  @Cron('*/10 * * * * *') // Runs every 5 seconds
+  @Cron('*/5 * * * * *') // Runs every 5 seconds
   async mintToHashkey() {
     // Get all transactions ready for Hashkey processing
     const transactions = await this.transactionRepository.findAll({
@@ -107,7 +105,7 @@ export class InvoiceStatusUpdaterService {
       toNetwork: 'H',
     });
 
-    // Update all found transactions to Processing status
+    // // Update all found transactions to Processing status
     for (const transaction of transactions) {
       await this.transactionRepository.update(transaction.id, {
         hashkeyStatus: 'P',
@@ -130,24 +128,28 @@ export class InvoiceStatusUpdaterService {
           continue;
         }
 
-        // Execute hBTC minting
-        await this.appService.sendToHashkeyAddress(
+        // Mint equivalent hBTC to user's Hashkey address
+        const tx = await this.appService.sendToHashkeyAddress(
           transaction.amount,
           transaction.hashkeyAddress,
         );
 
-        // Mark as completed
+        this.logger.log('tx', tx);
+
+        // Record Hashkey transaction hash
         await this.transactionRepository.update(transaction.id, {
+          hashkeyTx: tx,
           hashkeyStatus: 'Y',
         });
       } catch (error) {
         this.logger.error(
           'Error minting hBTC to hashkey address',
           transaction.id,
+          error,
         );
 
         await this.transactionRepository.update(transaction.id, {
-          hashkeyStatus: 'N',
+          hashkeyStatus: 'E',
         });
       }
     }

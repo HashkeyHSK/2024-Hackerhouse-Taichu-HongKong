@@ -234,6 +234,8 @@ export class AppService {
         hashkeyStatus: 'Y',
       });
 
+      this.logger.log('hashkeyToLN id', { id });
+
       return { id };
     } catch (error) {
       this.logger.error('Error in hashkeyToLN', error);

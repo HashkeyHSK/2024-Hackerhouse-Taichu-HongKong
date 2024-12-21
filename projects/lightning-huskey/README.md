@@ -10,8 +10,8 @@ cost-effectively than ever before.
 
 ## Tech Stack
 
-- Frontend: Next.js, TailwindCSS
-- Backend: NestJS, Ethers
+- Frontend: Next.js, Reown AppKit, Wagmi, Jotai, TailwindCSS
+- Backend: NestJS, TypeORM, Ethers, Swagger
 - Smart Contract: Solidity
 - Database: SQLite
 - Lightning Network Server : BTCPay(Open Source)

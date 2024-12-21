@@ -1,5 +1,6 @@
-![Icon](./image/icon.jpg)  
-# PolyFlow
+<img src="./images/icon.jpg" alt="Icon" width="150" height="150"> 
+
+# PolyFlow 🚀
 
 ---
 
@@ -70,4 +71,4 @@ _TBA_
 
 ---
 
-💡 **Stay tuned for updates and innovations as we redefine the boundaries of PayFi!** ✨
+💡 **Stay tuned for updates and innovations!** ✨

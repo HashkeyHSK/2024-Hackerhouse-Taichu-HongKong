@@ -16,8 +16,8 @@ if (!projectId) {
 
 // Set up metadata
 const metadata = {
-  name: "huskeyfi",
-  description: "huskeyfi",
+  name: "Lightning Huskey",
+  description: "Lightning Huskey",
   url: "https://hsk.xyz", // TODO: fix url
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };

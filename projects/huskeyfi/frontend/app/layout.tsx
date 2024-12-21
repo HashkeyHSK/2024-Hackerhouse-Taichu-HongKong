@@ -13,8 +13,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "huskeyfi",
-  description: "huekeyfi",
+  title: "Lightning Huskey",
+  description: "Lightning Huskey",
 };
 
 const RootLayout = ({

@@ -142,6 +142,8 @@ const InputBox = () => {
     } catch (error: any) {
       console.log(error.message);
       errorToast(error.message);
+      setIsContinueInWalletModalOpen(false);
+      setIsHashkeyToLNModalOpen(false);
     }
   };
 

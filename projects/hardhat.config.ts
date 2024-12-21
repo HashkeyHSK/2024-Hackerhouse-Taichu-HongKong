@@ -11,23 +11,71 @@ const config: HardhatUserConfig = {
     compilers: [
       {
         version: "0.6.12",
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }     
       },
       {
         version: "0.8.9",
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+         
       },
       {
         version: "0.8.12",
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+     
       },
       {
-        version: "0.8.19" 
+        version: "0.8.19" ,
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+     
       },
       {
-        version: "0.8.20" 
+        version: "0.8.20" ,
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+      
       },{
-        version:"0.5.0"
+        version:"0.5.0",
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+     
       },
       {
-        version:"0.8.28"
+        version:"0.8.28",
+        settings: {
+          optimizer: {
+           enabled: true,
+           runs: 10000000 //for multicall3
+          }
+         }
+     
       }
     ],
   },

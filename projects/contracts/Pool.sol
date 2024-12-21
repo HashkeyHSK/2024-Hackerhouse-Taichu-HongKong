@@ -9,7 +9,7 @@ import './hyperindex/libraries/HyperindexV2Library.sol';
 import "./help/Uint112Library.sol";
 import "./AbstractShare.sol";
 
-contract PerpPool is AbstractShare {
+contract Pool is AbstractShare {
     using SafeERC20 for IERC20;
     using Uint112Library for uint;
 

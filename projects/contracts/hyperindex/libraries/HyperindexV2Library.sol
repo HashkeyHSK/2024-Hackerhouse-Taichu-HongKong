@@ -23,7 +23,7 @@ library HyperindexV2Library {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'b4d4d093a282c5a30c7e0d37bec53ad1405404abac87cc046ceb2740307290e4' // init code hash
+                hex'428001c301e24c273c23698a4a156061190709d6a0f50e2acf7e50ca20b397c2' // init code hash
             )))));
     }
 

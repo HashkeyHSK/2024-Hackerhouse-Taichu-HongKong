@@ -19,8 +19,9 @@ cost-effectively than ever before.
 
 ## Demo
 
-- Demo Video: [YouTube link]
-- Project Deck: [Google Slides link]
+- Demo Video: [YouTube link](https://youtu.be/Ncz3RsVtdys)
+- Project Deck:
+  [Google Slides link](https://docs.google.com/presentation/d/13fSGhhUWmYLvchOHQlD4HLeRxPWpIXGLhxKRktQ2FEc/edit#slide=id.g3217db9e9c9_3_662)
 
 ## Team
 

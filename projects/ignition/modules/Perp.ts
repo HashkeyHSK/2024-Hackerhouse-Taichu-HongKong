@@ -22,7 +22,7 @@ const PerpModule = buildModule("PerpModule", (m) => {
   const borrowTokenAddr = m.getParameter("borrowTokenAddr", "0xCA8aAceEC5Db1e91B9Ed3a344bA026c4a2B3ebF6");
   const blockInterval = m.getParameter("blockInterval", 10000);
 
-  const pool = m.contract("Pool", [routerAddr,pairAddr,borrowTokenAddr,blockInterval]);
+  const pool = m.contract("PerpPool", [routerAddr,pairAddr,borrowTokenAddr,blockInterval]);
 
   return { pool };
 });

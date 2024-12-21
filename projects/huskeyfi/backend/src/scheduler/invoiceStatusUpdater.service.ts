@@ -18,18 +18,6 @@ export class InvoiceStatusUpdaterService {
   ) {}
 
   /**
-   * Mock function to simulate invoice status check
-   * @param invoiceId - The ID of the invoice to check
-   * @returns Simulated invoice status
-   * @deprecated Use appService.getInvoice instead
-   */
-  async getInvoice(invoiceId: string): Promise<string> {
-    // Simulate an API call to get the invoice status
-    // Replace this with actual API call logic
-    return 'Paid'; // Example status
-  }
-
-  /**
    * Scheduled task that checks for unpaid invoices (LNstatus: 'N') and updates their status
    * If an invoice is paid:
    * 1. Updates LNstatus to 'Y'
@@ -47,6 +35,13 @@ export class InvoiceStatusUpdaterService {
       toNetwork: 'H',
     });
 
+    // Update all found transactions to Processing status
+    for (const transaction of transactions) {
+      await this.transactionRepository.update(transaction.id, {
+        hashkeyStatus: 'P',
+      });
+    }
+
     for (const transaction of transactions) {
       try {
         // Check current invoice status from BTCPay Server
@@ -57,7 +52,9 @@ export class InvoiceStatusUpdaterService {
         if (status.status === 'Paid') {
           transaction.LNstatus = 'Paid';
           // Update LN payment status to completed ('Y')
-          await this.transactionRepository.updateLNStatus(transaction.id, 'Y');
+          await this.transactionRepository.update(transaction.id, {
+            LNstatus: 'Y',
+          });
 
           // Mint equivalent hBTC to user's Hashkey address
           const tx = await this.appService.sendToHashkeyAddress(
@@ -68,17 +65,18 @@ export class InvoiceStatusUpdaterService {
           this.logger.log('tx', tx);
 
           // Record Hashkey transaction hash
-          await this.transactionRepository.updateHashkeyTx(transaction.id, tx);
+          await this.transactionRepository.update(transaction.id, {
+            hashkeyTx: tx,
+          });
         } else {
           this.logger.log('invoice not paid', transaction.invoiceId);
         }
       } catch (error) {
         this.logger.error('Expired invoice', transaction.invoiceId);
         // Mark invoice as expired in database
-        await this.transactionRepository.updateLNStatus(
-          transaction.invoiceId,
-          'Expired',
-        );
+        await this.transactionRepository.update(transaction.id, {
+          LNstatus: 'Expired',
+        });
       }
     }
   }
@@ -111,7 +109,9 @@ export class InvoiceStatusUpdaterService {
 
     // Update all found transactions to Processing status
     for (const transaction of transactions) {
-      await this.transactionRepository.updateHashkeyStatus(transaction.id, 'P');
+      await this.transactionRepository.update(transaction.id, {
+        hashkeyStatus: 'P',
+      });
     }
 
     for (const transaction of transactions) {
@@ -124,10 +124,9 @@ export class InvoiceStatusUpdaterService {
           transaction.hashkeyAddress.length !== 42
         ) {
           // Mark as error if address format is invalid
-          await this.transactionRepository.updateHashkeyStatus(
-            transaction.id,
-            'E',
-          );
+          await this.transactionRepository.update(transaction.id, {
+            hashkeyStatus: 'E',
+          });
           continue;
         }
 
@@ -138,20 +137,18 @@ export class InvoiceStatusUpdaterService {
         );
 
         // Mark as completed
-        await this.transactionRepository.updateHashkeyStatus(
-          transaction.id,
-          'Y',
-        );
+        await this.transactionRepository.update(transaction.id, {
+          hashkeyStatus: 'Y',
+        });
       } catch (error) {
         this.logger.error(
           'Error minting hBTC to hashkey address',
           transaction.id,
         );
 
-        await this.transactionRepository.updateHashkeyStatus(
-          transaction.id,
-          'N',
-        );
+        await this.transactionRepository.update(transaction.id, {
+          hashkeyStatus: 'N',
+        });
       }
     }
   }
@@ -188,7 +185,9 @@ export class InvoiceStatusUpdaterService {
         await this.appService.LNReceivedPayment(body);
       } catch (error) {
         this.logger.error('Error processing hashkey bridge transaction', error);
-        // await this.transactionRepository.updateLNStatus(transaction.id, 'E');
+        await this.transactionRepository.update(transaction.id, {
+          LNstatus: 'E',
+        });
       }
     }
   }

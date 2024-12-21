@@ -55,6 +55,12 @@ export class HashkeyToLNInput {
   hashkeyTxId: string;
 }
 
+export class HashkeyToLNResponse {
+  @ApiProperty()
+  @IsString()
+  id: string;
+}
+
 export class LNReceivedPaymentInput {
   @ApiProperty()
   @IsString()

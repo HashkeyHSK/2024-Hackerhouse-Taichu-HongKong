@@ -12,10 +12,10 @@ export class LNToHashkeyTransaction {
   BOLT11?: string;
 
   @Column({ nullable: false })
-  hashkeyAddress: string;
+  hashkeyAddress?: string;
 
   @Column({ nullable: false })
-  amount: string;
+  amount?: string;
 
   @Column({ nullable: false, default: 'N' })
   LNstatus?: string;

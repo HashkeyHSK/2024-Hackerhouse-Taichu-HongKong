@@ -18,6 +18,12 @@ export class LNToHashkeyTransactionService {
     return this.LNToHashkeyTransactionRepository.find(where ? { where } : {});
   }
 
+  findOne(
+    where: FindOptionsWhere<LNToHashkeyTransaction>,
+  ): Promise<LNToHashkeyTransaction> {
+    return this.LNToHashkeyTransactionRepository.findOneBy(where);
+  }
+
   findOneInvoiceId(invoiceId: string): Promise<LNToHashkeyTransaction> {
     return this.LNToHashkeyTransactionRepository.findOneBy({ invoiceId });
   }
@@ -26,25 +32,8 @@ export class LNToHashkeyTransactionService {
     return this.LNToHashkeyTransactionRepository.findOneBy({ id });
   }
 
-  updateLNStatus(id: string, LNstatus: string): Promise<UpdateResult> {
-    return this.LNToHashkeyTransactionRepository.update(id, {
-      LNstatus,
-    });
-  }
-
-  updateHashkeyTx(id: string, hashkeyTx: string): Promise<UpdateResult> {
-    return this.LNToHashkeyTransactionRepository.update(id, {
-      hashkeyTx,
-    });
-  }
-
-  updateHashkeyStatus(
-    invoiceId: string,
-    hashkeyStatus: string,
-  ): Promise<UpdateResult> {
-    return this.LNToHashkeyTransactionRepository.update(invoiceId, {
-      hashkeyStatus,
-    });
+  update(id: string, data: LNToHashkeyTransaction): Promise<UpdateResult> {
+    return this.LNToHashkeyTransactionRepository.update(id, data);
   }
 
   async remove(invoiceId: string): Promise<void> {

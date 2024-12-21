@@ -1,6 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { HashkeyToLNInput, Invoice, InvoiceResponse } from 'dtos/dto';
+import {
+  HashkeyToLNInput,
+  HashkeyToLNResponse,
+  Invoice,
+  InvoiceResponse,
+} from 'dtos/dto';
 import { LNToHashkeyTransaction } from './entities/LNToHashkeyTransaction.entity';
 
 @Controller()
@@ -36,25 +41,15 @@ export class AppController {
     return this.appService.getInvoice(invoiceId);
   }
 
-  @Post('createInvoice')
+  @Post('LNToHashkey')
   postInvoice(@Body() body: Invoice): Promise<InvoiceResponse> {
-    return this.appService.createInvoice(body.amount, body.hashkeyAddress);
+    return this.appService.LNToHashkey(body.amount, body.hashkeyAddress);
   }
 
   @Post('hashkeyToLN')
-  postHashkeyToLN(@Body() body: HashkeyToLNInput): Promise<string> {
+  postHashkeyToLN(
+    @Body() body: HashkeyToLNInput,
+  ): Promise<HashkeyToLNResponse> {
     return this.appService.hashkeyToLN(body);
-  }
-
-  // @Post('sendToHashkey')
-  // postSendToHashkey(
-  //   @Body() body: SendToHashkeyInput,
-  // ): Promise<SendToHashkeyResponse> {
-  //   return this.appService.sendToHashkey(body.amount, body.hashkeyAddress);
-  // }
-
-  @Post('webhook')
-  postWebhook(@Body() body: any): Promise<string> {
-    return this.appService.webhook(body);
   }
 }

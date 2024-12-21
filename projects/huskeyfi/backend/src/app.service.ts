@@ -5,17 +5,11 @@ import axios from 'axios';
 import { LNToHashkeyTransactionService } from './LNToHashkeyTransaction.service';
 import { ethers, Wallet, parseUnits } from 'ethers';
 import ERC20ABI from './abis/ERC20';
-import { HashkeyToLNInput, LNReceivedPaymentInput } from 'dtos/dto';
-
-enum WebhookType {
-  InvoiceCreated = 'InvoiceCreated',
-  InvoiceExpired = 'InvoiceExpired',
-  InvoiceReceivedPayment = 'InvoiceReceivedPayment',
-  InvoicePaymentSettled = 'InvoicePaymentSettled',
-  InvoiceProcessing = 'InvoiceProcessing',
-  InvoiceInvalid = 'InvoiceInvalid',
-  InvoiceSettled = 'InvoiceSettled',
-}
+import {
+  HashkeyToLNInput,
+  HashkeyToLNResponse,
+  LNReceivedPaymentInput,
+} from 'dtos/dto';
 
 @Injectable()
 export class AppService {
@@ -39,30 +33,52 @@ export class AppService {
     return 'Hello Hashkey Chain!!! 😄 Congratulations on Mainnet Launch!!! 🎉';
   }
 
-  getTransaction(invoiceId: string): Promise<LNToHashkeyTransaction> {
-    return this.LNToHashkeyTransactionService.findOneInvoiceId(invoiceId);
+  async getTransaction(invoiceId: string): Promise<LNToHashkeyTransaction> {
+    try {
+      return await this.LNToHashkeyTransactionService.findOneInvoiceId(
+        invoiceId,
+      );
+    } catch (error) {
+      this.logger.error('Error getting transaction', error);
+      throw error;
+    }
   }
 
-  getTransactionById(id: string): Promise<LNToHashkeyTransaction> {
-    return this.LNToHashkeyTransactionService.findOneById(id);
+  async getTransactionById(id: string): Promise<LNToHashkeyTransaction> {
+    try {
+      return await this.LNToHashkeyTransactionService.findOneById(id);
+    } catch (error) {
+      this.logger.error('Error getting transaction by id', error);
+      throw error;
+    }
   }
 
-  getTransactions(): Promise<LNToHashkeyTransaction[]> {
-    return this.LNToHashkeyTransactionService.findAll();
+  async getTransactions(): Promise<LNToHashkeyTransaction[]> {
+    try {
+      return await this.LNToHashkeyTransactionService.findAll();
+    } catch (error) {
+      this.logger.error('Error getting transactions', error);
+      throw error;
+    }
   }
 
   makeInvoice(amount: string): Invoice {
-    return {
-      amount: amount.toString(),
-      description: 'Bridge between Hashkey and Lightning Network',
-      descriptionHashOnly: false,
-      expiry: 600,
-      privateRouteHints: false,
-    };
+    try {
+      return {
+        amount: amount.toString(),
+        description: 'Bridge between Hashkey and Lightning Network',
+        descriptionHashOnly: false,
+        expiry: 600,
+        privateRouteHints: false,
+      };
+    } catch (error) {
+      this.logger.error('Error making invoice', error);
+      throw error;
+    }
   }
 
   // https://btcpay.stackstake.io/api/v1/stores/{storeId}/lightning/BTC/invoices
-  async createInvoice(
+  async LNToHashkey(
     amount: string,
     hashkeyAddress: string,
   ): Promise<InvoiceResponse> {
@@ -91,7 +107,7 @@ export class AppService {
       const invoiceId = response.data.id;
       const BOLT11 = response.data.BOLT11;
 
-      const id = await this.LNToHashkeyTransactionService.create({
+      await this.LNToHashkeyTransactionService.create({
         invoiceId,
         BOLT11,
         hashkeyAddress,
@@ -110,30 +126,35 @@ export class AppService {
   }
 
   async getInvoice(invoiceId: string): Promise<InvoiceResponse> {
-    const response = await axios.get(
-      `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices/${invoiceId}`,
-      {
-        headers: this.getAuthHeaders(),
-      },
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices/${invoiceId}`,
+        {
+          headers: this.getAuthHeaders(),
+        },
+      );
+      return response.data;
+    } catch (error) {
+      this.logger.error('Error getting invoice', error);
+      throw error;
+    }
   }
 
   async sendToHashkeyAddress(
     amount: string,
     hashkeyAddress: string,
   ): Promise<string> {
-    // send to hashkey address using hashkey private key
-    const privateKey = process.env.HASHKEY_PRIVATE_KEY;
-    const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
-    const wallet = new Wallet(privateKey, provider);
-    // get hashkey btc address
-    const hashkeyBtcAddress = process.env.HASHKEY_BTC_ADDRESS;
-    this.logger.log('hashkeyBtcAddress', hashkeyBtcAddress);
-    this.logger.log('hashkeyAddress', hashkeyAddress);
-    this.logger.log('amount', amount);
-
     try {
+      // send to hashkey address using hashkey private key
+      const privateKey = process.env.HASHKEY_PRIVATE_KEY;
+      const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
+      const wallet = new Wallet(privateKey, provider);
+      // get hashkey btc address
+      const hashkeyBtcAddress = process.env.HASHKEY_BTC_ADDRESS;
+      this.logger.log('hashkeyBtcAddress', hashkeyBtcAddress);
+      this.logger.log('hashkeyAddress', hashkeyAddress);
+      this.logger.log('amount', amount);
+
       // Call hBTC contract to mint hBTC tokens
       const hBTCContract = new ethers.Contract(
         hashkeyBtcAddress,
@@ -157,64 +178,74 @@ export class AppService {
 
   // 해시키체인에서 HASHKEY_BRIDGE_ADDRESS 주소로 입금된 hBTC 트랜잭션 emitted 이벤트를 조회한다.
   async getHashkeyBridgeTransactions(): Promise<any> {
-    // 해시키체인에서 HASHKEY_BRIDGE_ADDRESS 주소로 입금된 hBTC 토큰 이벤트를 조회한다.
-    const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
-    const wallet = new Wallet(process.env.HASHKEY_PRIVATE_KEY, provider);
-    const hashkeyBridgeAddress = process.env.HASHKEY_BRIDGE_ADDRESS;
-    const hashkeyBtcAddress = process.env.HASHKEY_BTC_ADDRESS;
+    try {
+      // 해시키체인에서 HASHKEY_BRIDGE_ADDRESS 주소로 입금된 hBTC 토큰 이벤트를 조회한다.
+      const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
+      const wallet = new Wallet(process.env.HASHKEY_PRIVATE_KEY, provider);
+      const hashkeyBridgeAddress = process.env.HASHKEY_BRIDGE_ADDRESS;
+      const hashkeyBtcAddress = process.env.HASHKEY_BTC_ADDRESS;
 
-    const hBTCContract = new ethers.Contract(
-      hashkeyBtcAddress,
-      ERC20ABI,
-      wallet,
-    );
+      const hBTCContract = new ethers.Contract(
+        hashkeyBtcAddress,
+        ERC20ABI,
+        wallet,
+      );
 
-    const events = await hBTCContract.queryFilter(
-      hBTCContract.filters.Transfer(null, hashkeyBridgeAddress),
-    );
+      const events = await hBTCContract.queryFilter(
+        hBTCContract.filters.Transfer(null, hashkeyBridgeAddress),
+      );
 
-    this.logger.log('events', events);
+      this.logger.log('events', events);
 
-    return events;
+      return events;
+    } catch (error) {
+      this.logger.error('Error getting hashkey bridge transactions', error);
+      throw error;
+    }
   }
 
-  async hashkeyToLN(body: HashkeyToLNInput): Promise<string> {
-    this.logger.log('received hashkeyToLN', body);
-    const { lnAddress, hashkeyAddress, amount, hashkeyTxId } = body;
+  async hashkeyToLN(body: HashkeyToLNInput): Promise<HashkeyToLNResponse> {
+    try {
+      this.logger.log('received hashkeyToLN', body);
+      const { lnAddress, hashkeyAddress, amount, hashkeyTxId } = body;
 
-    // 해시키체인에서 입금된 hBTC 트랜잭션을 조회한다.
-    const events = await this.getHashkeyBridgeTransactions();
+      // 해시키체인에서 입금된 hBTC 트랜잭션을 조회한다.
+      const events = await this.getHashkeyBridgeTransactions();
 
-    // events에 조회된 address와 입력된 address가 일치하는 트랜잭션을 조회한다.
-    const event = events.find(
-      (event) => event.args[0].toLowerCase() === hashkeyAddress.toLowerCase(),
-    );
+      // events에 조회된 address와 입력된 address가 일치하는 트랜잭션을 조회한다.
+      const event = events.find(
+        (event) => event.args[0].toLowerCase() === hashkeyAddress.toLowerCase(),
+      );
 
-    if (!event) {
-      this.logger.error('No event found');
-      return;
+      if (!event) {
+        this.logger.error('No event found');
+        return;
+      }
+
+      // 조회된 트랜잭션을 sqlite에 저장한다.
+      const id = await this.LNToHashkeyTransactionService.create({
+        BOLT11: lnAddress,
+        hashkeyAddress,
+        amount,
+        hashkeyTx: hashkeyTxId,
+        fromNetwork: 'H',
+        toNetwork: 'L',
+        LNstatus: 'N',
+        hashkeyStatus: 'Y',
+      });
+
+      return { id };
+    } catch (error) {
+      this.logger.error('Error in hashkeyToLN', error);
+      throw error;
     }
-
-    // 조회된 트랜잭션을 sqlite에 저장한다.
-    const id = await this.LNToHashkeyTransactionService.create({
-      BOLT11: lnAddress,
-      hashkeyAddress,
-      amount,
-      hashkeyTx: hashkeyTxId,
-      fromNetwork: 'H',
-      toNetwork: 'L',
-      LNstatus: 'N',
-      hashkeyStatus: 'Y',
-    });
-
-    return id;
   }
 
   // LN BOLT11 주소로 payment 받은 경우
   async LNReceivedPayment(body: LNReceivedPaymentInput): Promise<any> {
-    this.logger.log('received LNReceivedPayment', body);
-
     try {
+      this.logger.log('received LNReceivedPayment', body);
+
       // https://btcpay.stackstake.io/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/pay
       const response = await axios.post(
         `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices/pay`,
@@ -227,33 +258,14 @@ export class AppService {
       this.logger.log('response', response.data);
 
       // Update LN status to Y on success
-      await this.LNToHashkeyTransactionService.updateLNStatus(body.id, 'Y');
+      await this.LNToHashkeyTransactionService.update(body.id, {
+        LNstatus: 'Y',
+      });
 
       return response.data;
     } catch (error) {
       this.logger.error('Error in LNReceivedPayment', error);
       throw error;
     }
-  }
-
-  async webhook(body: any): Promise<string> {
-    this.logger.log('received webhook', body);
-    const webhookType = body.type;
-    if (webhookType === WebhookType.InvoiceCreated) {
-      this.logger.log('InvoiceCreated');
-    } else if (webhookType === WebhookType.InvoiceExpired) {
-      this.logger.log('InvoiceExpired');
-    } else if (webhookType === WebhookType.InvoiceReceivedPayment) {
-      this.logger.log('InvoiceReceivedPayment');
-    } else if (webhookType === WebhookType.InvoicePaymentSettled) {
-      this.logger.log('InvoicePaymentSettled');
-    } else if (webhookType === WebhookType.InvoiceProcessing) {
-      this.logger.log('InvoiceProcessing');
-    } else if (webhookType === WebhookType.InvoiceInvalid) {
-      this.logger.log('InvoiceInvalid');
-    } else if (webhookType === WebhookType.InvoiceSettled) {
-      this.logger.log('InvoiceSettled');
-    }
-    return 'test';
   }
 }

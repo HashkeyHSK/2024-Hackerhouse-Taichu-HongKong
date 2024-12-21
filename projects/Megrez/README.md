@@ -10,6 +10,6 @@ This project collects users’ sleep data through wearable devices (such as wris
 - Project Deck: https://explorer.hsk.xyz/address/0xB82744E309db4d24a2615CC799ED7C20E11327aB
 
 ## Team
-Tony Fu—— Co-Developer
-Daye Li—— Co-Developer
+- Tony Fu—— Co-Developer
+- Daye Li—— Co-Developer
 

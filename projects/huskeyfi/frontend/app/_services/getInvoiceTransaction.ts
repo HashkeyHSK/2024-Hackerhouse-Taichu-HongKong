@@ -3,12 +3,16 @@
 import { callApi } from "../_utils/callApi";
 
 type Invoice = {
+  id: string;
   invoiceId: string;
   BOLT11: string;
   hashkeyAddress: string;
   amount: string;
-  LNstatus: string;
-  hashkeyStatus: string;
+  LNstatus: "Y" | "N" | "P";
+  hashkeyStatus: "Y" | "N" | "P";
+  hashkeyTx: string | null;
+  fromNetwork: "L" | "H";
+  toNetwork: "L" | "H";
 };
 
 const getInvoiceTransaction = async ({ invoiceId }: { invoiceId: string }) => {
@@ -21,7 +25,7 @@ const getInvoiceTransaction = async ({ invoiceId }: { invoiceId: string }) => {
     throw new Error(res.error);
   }
 
-  return res.data as Invoice;
+  return res as unknown as Invoice;
 };
 
 export default getInvoiceTransaction;

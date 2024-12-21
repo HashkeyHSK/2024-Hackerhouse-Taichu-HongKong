@@ -3,10 +3,21 @@
 import { callApi } from "../_utils/callApi";
 
 type CreateInvoiceProps = {
-  amount: number;
+  amount: string;
   description?: string;
   descriptionHashOnly?: boolean;
   hashkeyAddress: string;
+};
+
+type Invoice = {
+  id: string;
+  status: string;
+  BOLT11: string;
+  paymentHash: string;
+  paidAt: any;
+  expiresAt: number;
+  amount: string;
+  amountReceived: any;
 };
 
 const createInvoice = async ({
@@ -16,10 +27,10 @@ const createInvoice = async ({
   hashkeyAddress,
 }: CreateInvoiceProps) => {
   const res = await callApi({
-    endpoint: "/createInvoice",
+    endpoint: "/LNToHashkey",
     method: "POST",
     body: {
-      amount,
+      amount: `${amount}000`,
       description: description || "",
       descriptionHashOnly: descriptionHashOnly || true,
       hashkeyAddress,
@@ -30,7 +41,7 @@ const createInvoice = async ({
     throw new Error(res.error);
   }
 
-  return res.data as { invoiceId: string };
+  return res as unknown as Invoice;
 };
 
 export default createInvoice;

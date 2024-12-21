@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppKit } from "@reown/appkit/react";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { getBalance, GetBalanceReturnType } from "@wagmi/core";
 import { config } from "../config";
@@ -9,6 +9,9 @@ import { HBTC } from "../constants/constants";
 import useInput from "../_hooks/useInput";
 import { useSwitch } from "../context/SwitchContext";
 import SendButton from "./SendButton";
+import LightningInvoiceModal from "./LightningInvoiceModal";
+import createInvoice from "../_services/createInvoice";
+import { formatEther, parseUnits } from "viem";
 
 const InputBox = () => {
   const { open } = useAppKit();
@@ -52,11 +55,6 @@ const InputBox = () => {
     }
   }, [isToLN, invoiceValue, isValid, amountValue]);
 
-  const balanceText =
-    !tokenBalance || tokenBalance.value === BigInt(0)
-      ? "0"
-      : tokenBalance.value.toString();
-
   const formatNumberWithCommas = (value: string) => {
     const parts = value.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -75,11 +73,41 @@ const InputBox = () => {
     setIsValid(isValidNumber);
   };
 
+  const [isLightningInvoiceModalOpen, setIsLightningInvoiceModalOpen] =
+    useState(false);
+  const [invoiceId, setInvoiceId] = useState("");
+
+  const handleOpenLightningInvoiceModal = async () => {
+    const res = await createInvoice({
+      amount: amountValue,
+      hashkeyAddress: address as string,
+    });
+
+    setInvoiceId(res.id);
+
+    setIsLightningInvoiceModalOpen(true);
+  };
+
+  const [isInsufficient, setIsInsufficient] = useState(false);
+
+  useEffect(() => {
+    if (
+      isToLN &&
+      tokenBalance &&
+      parseUnits(amountValue, 10) > tokenBalance.value
+    ) {
+      setIsInsufficient(true);
+      setIsSendEnabled(false);
+    } else {
+      setIsInsufficient(false);
+    }
+  }, [isToLN, amountValue, tokenBalance]);
+
   const renderInputField = () => {
     if (isToLN) {
       return (
         <>
-          <div className="flex w-full rounded border border-huskey-gray-600 p-4">
+          <div className="flex w-full rounded border border-huskey-gray-600 bg-huskey-background p-4">
             <input
               name="invoice"
               type="text"
@@ -89,33 +117,37 @@ const InputBox = () => {
               onChange={onInvoiceChange}
             />
           </div>
-          <SendButton isDisabled={!isSendEnabled} />
+          <SendButton isDisabled={!isSendEnabled} onClick={() => {}} />
         </>
       );
     }
     return (
       <>
-        <div className="flex w-full justify-center rounded border border-huskey-gray-600 p-4">
+        <div className="flex w-full justify-center rounded border border-huskey-gray-600 bg-huskey-background p-4">
           <p className="text-center">{address}</p>
         </div>
-        <SendButton isDisabled={!isSendEnabled} />
+        <SendButton
+          isDisabled={!isSendEnabled}
+          onClick={handleOpenLightningInvoiceModal}
+        />
       </>
     );
   };
 
   return (
-    <div className="flex w-full flex-col gap-5 rounded border border-huskey-gray-600 p-5">
+    <div className="flex w-full flex-col gap-5 rounded border border-huskey-primary-400 bg-huskey-box p-5">
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between">
           <p className="text-xl">Amount</p>
           {isToLN && (
             <p className="text-sm font-normal text-huskey-gray-300">
-              Balance: {balanceText} SAT
+              Balance: {tokenBalance ? formatEther(tokenBalance?.value) : "0"}{" "}
+              hBTC
             </p>
           )}
         </div>
 
-        <div className="flex w-full rounded border border-huskey-gray-600 p-4">
+        <div className="flex w-full rounded border border-huskey-gray-600 bg-huskey-background p-4">
           <input
             name="amount"
             type="text"
@@ -127,8 +159,12 @@ const InputBox = () => {
           />
           <p className="ml-7">SAT</p>
         </div>
-        {!isValid && (
-          <p className="text-sm text-red-500">Please enter a valid number.</p>
+        {isInsufficient ? (
+          <p className="text-sm text-red-500">Insufficient balance.</p>
+        ) : (
+          !isValid && (
+            <p className="text-sm text-red-500">Please enter a valid number.</p>
+          )
         )}
       </div>
       <div className="flex flex-col gap-4">
@@ -139,7 +175,8 @@ const InputBox = () => {
           </p>
           {!isToLN && (
             <p className="text-sm font-normal text-huskey-gray-300">
-              Balance: {balanceText} SAT
+              Balance: {tokenBalance ? formatEther(tokenBalance?.value) : "0"}{" "}
+              hBTC
             </p>
           )}
         </div>
@@ -156,6 +193,12 @@ const InputBox = () => {
           </button>
         )}
       </div>
+      {isLightningInvoiceModalOpen && (
+        <LightningInvoiceModal
+          invoiceId={invoiceId}
+          onClose={() => setIsLightningInvoiceModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

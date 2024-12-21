@@ -43,7 +43,7 @@ const HashkeyToLNModal = ({ id, onClose }: HashkeyToLNModalProps) => {
   }, []);
 
   return (
-    <Modal title="LN invoice" onClose={onClose}>
+    <Modal title="" onClose={onClose}>
       <div className="min-w-80">
         <div className="mb-2 mt-2 flex flex-col">
           <div className="mx-auto flex items-center gap-1">

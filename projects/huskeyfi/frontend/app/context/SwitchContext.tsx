@@ -10,7 +10,7 @@ interface SwitchContextType {
 const SwitchContext = createContext<SwitchContextType | undefined>(undefined);
 
 export const SwitchProvider = ({ children }: { children: ReactNode }) => {
-  const [isToLN, setIsToLN] = useState(true);
+  const [isToLN, setIsToLN] = useState(false);
 
   const toggleSwitch = () => {
     setIsToLN((prev) => !prev);

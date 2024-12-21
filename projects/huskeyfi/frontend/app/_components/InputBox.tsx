@@ -3,15 +3,25 @@
 import { useAppKit } from "@reown/appkit/react";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
-import { getBalance, GetBalanceReturnType } from "@wagmi/core";
+import {
+  getBalance,
+  GetBalanceReturnType,
+  sendTransaction,
+  writeContract,
+} from "@wagmi/core";
 import { config } from "../config";
-import { HBTC } from "../constants/constants";
+import { HBTC, LN_BRIDGE } from "../constants/constants";
 import useInput from "../_hooks/useInput";
 import { useSwitch } from "../context/SwitchContext";
 import SendButton from "./SendButton";
 import LightningInvoiceModal from "./LightningInvoiceModal";
 import createInvoice from "../_services/createInvoice";
 import { formatEther, parseUnits } from "viem";
+import ERC20Abi from "../_abis/ERC20Abi";
+import { errorToast } from "../_utils/notifications";
+import hashkeyToLN from "../_services/hashkeyToLN";
+import ContinueInWalletModal from "./ContinueInWalletModal";
+import HashkeyToLNModal from "./HashkeyToLNModal";
 
 const InputBox = () => {
   const { open } = useAppKit();
@@ -103,6 +113,38 @@ const InputBox = () => {
     }
   }, [isToLN, amountValue, tokenBalance]);
 
+  const [isContinueInWalletModalOpen, setIsContinueInWalletModalOpen] =
+    useState(false);
+  const [isHashkeyToLNModalOpen, setIsHashkeyToLNModalOpen] = useState(false);
+  const [txId, setTxId] = useState("");
+
+  const handleHashkeyToLN = async () => {
+    try {
+      setIsContinueInWalletModalOpen(true);
+
+      const hashkeyTxId = await writeContract(config, {
+        abi: ERC20Abi,
+        address: HBTC,
+        functionName: "transfer",
+        args: [LN_BRIDGE, parseUnits(amountValue, 10).toString()],
+      });
+
+      const res = await hashkeyToLN({
+        lnAddress: invoiceValue,
+        hashkeyAddress: address as string,
+        amount: formatEther(parseUnits(amountValue, 10)),
+        hashkeyTxId,
+      });
+      setTxId(res.id);
+
+      setIsContinueInWalletModalOpen(false);
+      setIsHashkeyToLNModalOpen(true);
+    } catch (error: any) {
+      console.log(error.message);
+      errorToast(error.message);
+    }
+  };
+
   const renderInputField = () => {
     if (isToLN) {
       return (
@@ -117,7 +159,7 @@ const InputBox = () => {
               onChange={onInvoiceChange}
             />
           </div>
-          <SendButton isDisabled={!isSendEnabled} onClick={() => {}} />
+          <SendButton isDisabled={!isSendEnabled} onClick={handleHashkeyToLN} />
         </>
       );
     }
@@ -197,6 +239,17 @@ const InputBox = () => {
         <LightningInvoiceModal
           invoiceId={invoiceId}
           onClose={() => setIsLightningInvoiceModalOpen(false)}
+        />
+      )}
+      {isContinueInWalletModalOpen && (
+        <ContinueInWalletModal
+          onClose={() => setIsContinueInWalletModalOpen(false)}
+        />
+      )}
+      {isHashkeyToLNModalOpen && (
+        <HashkeyToLNModal
+          id={txId}
+          onClose={() => setIsHashkeyToLNModalOpen(false)}
         />
       )}
     </div>

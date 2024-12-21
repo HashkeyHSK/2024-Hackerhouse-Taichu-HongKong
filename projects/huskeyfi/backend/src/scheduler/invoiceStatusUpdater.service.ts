@@ -178,8 +178,7 @@ export class InvoiceStatusUpdaterService {
         // 소수점은 없어야 한다.
         body.amount = (Number(transaction.amount) * 100000000000).toString();
 
-        // 소수점 없애기
-        body.amount = body.amount.replace('.', '');
+        body.amount = body.amount.split('.')[0];
 
         this.logger.log('body', body);
         await this.appService.LNReceivedPayment(body);

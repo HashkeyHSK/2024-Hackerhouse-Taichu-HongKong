@@ -85,7 +85,7 @@ export class AppService {
     const invoice = this.makeInvoice(amount);
     this.logger.log('creating invoice', invoice);
 
-    // 인보이스 생성
+    // Create invoice
     try {
       const response = await axios.post(
         `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices`,
@@ -103,7 +103,7 @@ export class AppService {
         };
       }
 
-      // 정상적으로 생성된 경우 sqlite 저장
+      // If invoice is created successfully, save to sqlite
       const invoiceId = response.data.id;
       const BOLT11 = response.data.BOLT11;
 
@@ -176,10 +176,10 @@ export class AppService {
     }
   }
 
-  // 해시키체인에서 HASHKEY_BRIDGE_ADDRESS 주소로 입금된 hBTC 트랜잭션 emitted 이벤트를 조회한다.
+  // Query emitted events for hBTC transactions sent to HASHKEY_BRIDGE_ADDRESS
   async getHashkeyBridgeTransactions(): Promise<any> {
     try {
-      // 해시키체인에서 HASHKEY_BRIDGE_ADDRESS 주소로 입금된 hBTC 토큰 이벤트를 조회한다.
+      // Query hBTC token events for transfers to HASHKEY_BRIDGE_ADDRESS
       const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
       const wallet = new Wallet(process.env.HASHKEY_PRIVATE_KEY, provider);
       const hashkeyBridgeAddress = process.env.HASHKEY_BRIDGE_ADDRESS;
@@ -209,10 +209,10 @@ export class AppService {
       this.logger.log('received hashkeyToLN', body);
       const { lnAddress, hashkeyAddress, amount, hashkeyTxId } = body;
 
-      // 해시키체인에서 입금된 hBTC 트랜잭션을 조회한다.
+      // Query hBTC transactions deposited on Hashkey chain
       const events = await this.getHashkeyBridgeTransactions();
 
-      // events에 조회된 address와 입력된 address가 일치하는 트랜잭션을 조회한다.
+      // Find transaction where deposited address matches input address
       const event = events.find(
         (event) => event.args[0].toLowerCase() === hashkeyAddress.toLowerCase(),
       );
@@ -222,7 +222,7 @@ export class AppService {
         return;
       }
 
-      // 조회된 트랜잭션을 sqlite에 저장한다.
+      // Save the found transaction to sqlite
       const id = await this.LNToHashkeyTransactionService.create({
         BOLT11: lnAddress,
         hashkeyAddress,
@@ -241,7 +241,7 @@ export class AppService {
     }
   }
 
-  // LN BOLT11 주소로 payment 받은 경우
+  // Handle payment received to LN BOLT11 address
   async LNReceivedPayment(body: LNReceivedPaymentInput): Promise<any> {
     try {
       this.logger.log('received LNReceivedPayment', body);

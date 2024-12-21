@@ -9,10 +9,12 @@ const SwitchComponent = () => {
 
   return (
     <div className="flex w-full items-center gap-2 text-2xl">
-      <span className="text-huskey-gray-400">{isToLN ? "HashKey" : "LN"}</span>
+      <span className="text-huskey-gray-400">
+        {isToLN ? "HashKey" : "Lightning Network"}
+      </span>
       <ArrowRightIcon />
       <span className="text-huskey-primary-400">
-        {isToLN ? "LN" : "HashKey"}
+        {isToLN ? "Lightning Network" : "HashKey"}
       </span>
       <div
         className="flex cursor-pointer items-center justify-center rounded border border-huskey-primary-400 p-1"

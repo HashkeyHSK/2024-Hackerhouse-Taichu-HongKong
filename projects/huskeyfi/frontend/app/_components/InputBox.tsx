@@ -235,7 +235,7 @@ const InputBox = () => {
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between">
           <p className="text-xl">
-            {isToLN ? "Lightning Network invoice" : "Recipient Address"}
+            {isToLN ? "Lightning Network Invoice" : "Recipient Address"}
             {!isToLN && <span className="text-sm"> (HashKey Chain)</span>}
           </p>
           {!isToLN && (

@@ -51,7 +51,7 @@ const LightningInvoiceModal = ({
   }, []);
 
   return (
-    <Modal title="Lightning Network invoice" onClose={onClose}>
+    <Modal title="Lightning Network Invoice" onClose={onClose}>
       <div className="min-w-80">
         {QRValue && (
           <div className="mb-2 mt-2 flex flex-col">

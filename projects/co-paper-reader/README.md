@@ -18,7 +18,7 @@ Tokenized Paper📝, make paper/book as a company with shares, and could be comm
 
 ## Demo
 - Demo Online: https://paper.rootmud.xyz
-- Demo Video: 
+- Demo Video: https://youtu.be/9OQRTjRDu6M
 - Github: https://github.com/SCIW3/paper-co-reader
 - Project Deck: https://drive.google.com/file/d/18KgVp2zXLdnNe8QZfNN_qKuDFcv83fkS/view?usp=sharing
 

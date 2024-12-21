@@ -56,6 +56,7 @@ Through this, we offer long-term value to the HashKey Chain ecosystem—includin
 ## Demo
 - Demo Video: [YouTube link]
 - Project Deck: [Google Slides link]
+- Source Code: [Github Organization](https://github.com/orgs/HashKeyFun/repositories)
 
 ## Team
 - HYEONUK Kim - Chain Engineer

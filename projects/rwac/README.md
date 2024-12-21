@@ -13,5 +13,4 @@ Fintech is changing day by day, and RWA's new technology not only empowers digit
 
 ## Team
 - feike - Shucang CEO
-- Tony - NFTChina CEO
-- feiyue - CTO
+- Tony Fu - NFTChina CEO

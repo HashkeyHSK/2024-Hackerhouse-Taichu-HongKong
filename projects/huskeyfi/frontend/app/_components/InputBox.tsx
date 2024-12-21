@@ -21,16 +21,21 @@ import { useAtom } from "jotai";
 import { TransactionHashAtom } from "../_store";
 import Link from "next/link";
 
+// Main input component for handling token transfers
 const InputBox = () => {
+  // Hooks for wallet connection and account state
   const { open } = useAppKit();
   const { address, isConnected } = useAccount();
   const { isToLN } = useSwitch();
+
+  // State for token balance and transaction control
   const [tokenBalance, setTokenBalance] = useState<GetBalanceReturnType | null>(
     null,
   );
   const [isSendEnabled, setIsSendEnabled] = useState(false);
   const [transactionHash, setTransactionHash] = useAtom(TransactionHashAtom);
 
+  // Custom hooks for input handling
   const {
     value: amountValue,
     setValue: setAmountValue,
@@ -45,6 +50,7 @@ const InputBox = () => {
     regex: /^.*$/,
   });
 
+  // Fetch token balance when wallet is connected
   useEffect(() => {
     if (isConnected && address) {
       getBalance(config, {
@@ -54,6 +60,7 @@ const InputBox = () => {
     }
   }, [isConnected, address]);
 
+  // Enable/disable send button based on input validation
   useEffect(() => {
     const isAmountValid =
       isValid && amountValue.trim() !== "" && parseFloat(amountValue) > 0;
@@ -64,12 +71,14 @@ const InputBox = () => {
     }
   }, [isToLN, invoiceValue, isValid, amountValue]);
 
+  // Format number with commas for better readability
   const formatNumberWithCommas = (value: string) => {
     const parts = value.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
   };
 
+  // Handle amount input changes with formatting
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let rawValue = event.target.value.replace(/,/g, "");
     rawValue = rawValue.replace(/^0+(?=\d)/, "");
@@ -82,10 +91,12 @@ const InputBox = () => {
     setIsValid(isValidNumber);
   };
 
+  // State for Lightning Invoice modal
   const [isLightningInvoiceModalOpen, setIsLightningInvoiceModalOpen] =
     useState(false);
   const [invoiceId, setInvoiceId] = useState("");
 
+  // Handle opening Lightning Invoice modal
   const handleOpenLightningInvoiceModal = async () => {
     setTransactionHash(undefined);
 
@@ -99,8 +110,10 @@ const InputBox = () => {
     setIsLightningInvoiceModalOpen(true);
   };
 
+  // State for insufficient balance check
   const [isInsufficient, setIsInsufficient] = useState(false);
 
+  // Check for insufficient balance
   useEffect(() => {
     if (
       isToLN &&
@@ -114,11 +127,13 @@ const InputBox = () => {
     }
   }, [isToLN, amountValue, tokenBalance]);
 
+  // State for transaction modals
   const [isContinueInWalletModalOpen, setIsContinueInWalletModalOpen] =
     useState(false);
   const [isHashkeyToLNModalOpen, setIsHashkeyToLNModalOpen] = useState(false);
   const [txId, setTxId] = useState("");
 
+  // Handle Hashkey to Lightning Network transfer
   const handleHashkeyToLN = async () => {
     try {
       setTransactionHash(undefined);
@@ -152,6 +167,7 @@ const InputBox = () => {
     }
   };
 
+  // Update token balance after transaction
   const handleUpdateTokenBalance = () => {
     if (isConnected && address) {
       setTimeout(() => {
@@ -163,6 +179,7 @@ const InputBox = () => {
     }
   };
 
+  // Modal close handlers
   const handleCloseLightningInvoiceModal = () => {
     setIsLightningInvoiceModalOpen(false);
     handleUpdateTokenBalance();
@@ -178,6 +195,7 @@ const InputBox = () => {
     handleUpdateTokenBalance();
   };
 
+  // Render input field based on transfer direction
   const renderInputField = () => {
     if (isToLN) {
       return (
@@ -209,6 +227,7 @@ const InputBox = () => {
     );
   };
 
+  // Main component render
   return (
     <div className="mt-10 flex w-full flex-col gap-5 rounded border border-huskey-primary-400 bg-huskey-box p-5">
       <div className="flex flex-col gap-4">

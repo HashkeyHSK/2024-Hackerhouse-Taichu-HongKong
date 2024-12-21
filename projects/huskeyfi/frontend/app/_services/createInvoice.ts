@@ -2,6 +2,7 @@
 
 import { callApi } from "../_utils/callApi";
 
+// Props type definition for creating a Lightning Network invoice
 type CreateInvoiceProps = {
   amount: string;
   description?: string;
@@ -9,6 +10,7 @@ type CreateInvoiceProps = {
   hashkeyAddress: string;
 };
 
+// Type definition for Lightning Network invoice response
 type Invoice = {
   id: string;
   status: string;
@@ -20,27 +22,31 @@ type Invoice = {
   amountReceived: any;
 };
 
+// Function to create a Lightning Network invoice that pays to a Hashkey address
 const createInvoice = async ({
   amount,
   description,
   descriptionHashOnly,
   hashkeyAddress,
 }: CreateInvoiceProps) => {
+  // Call API to create invoice
   const res = await callApi({
     endpoint: "/LNToHashkey",
     method: "POST",
     body: {
-      amount: `${amount}000`,
+      amount: `${amount}000`, // Convert to millisatoshis
       description: description || "",
       descriptionHashOnly: descriptionHashOnly || true,
       hashkeyAddress,
     },
   });
 
+  // Handle API error response
   if (res.error) {
     throw new Error(res.error);
   }
 
+  // Return typed invoice response
   return res as unknown as Invoice;
 };
 

@@ -1,8 +1,10 @@
+// Props type definition for SendButton
 interface SendButtonProps {
-  isDisabled: boolean;
-  onClick: () => void;
+  isDisabled: boolean; // Flag to disable/enable button
+  onClick: () => void; // Click handler function
 }
 
+// Button component for sending transactions
 const SendButton: React.FC<SendButtonProps> = ({ isDisabled, onClick }) => {
   return (
     <button

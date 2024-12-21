@@ -11,6 +11,10 @@ import {
   LNReceivedPaymentInput,
 } from 'dtos/dto';
 
+/**
+ * Service handling Lightning Network and Hashkey Chain bridge operations
+ * Manages cross-chain transactions between Lightning Network and Hashkey Chain
+ */
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
@@ -23,16 +27,29 @@ export class AppService {
     private LNToHashkeyTransactionService: LNToHashkeyTransactionService,
   ) {}
 
+  /**
+   * Returns authorization headers with API key for BTCPay Server requests
+   * @returns {Object} Headers object containing API key
+   */
   private getAuthHeaders() {
     return {
       Authorization: `token ${this.API_KEY}`,
     };
   }
 
+  /**
+   * Basic health check endpoint
+   * @returns {string} Welcome message
+   */
   getHello(): string {
     return 'Hello Hashkey Chain!!! 😄 Congratulations on Mainnet Launch!!! 🎉';
   }
 
+  /**
+   * Retrieves a transaction by invoice ID from the database
+   * @param {string} invoiceId - The invoice ID to search for
+   * @returns {Promise<LNToHashkeyTransaction>} Transaction record
+   */
   async getTransaction(invoiceId: string): Promise<LNToHashkeyTransaction> {
     try {
       return await this.LNToHashkeyTransactionService.findOneInvoiceId(
@@ -44,6 +61,11 @@ export class AppService {
     }
   }
 
+  /**
+   * Retrieves a transaction by ID from the database
+   * @param {string} id - The transaction ID to search for
+   * @returns {Promise<LNToHashkeyTransaction>} Transaction record
+   */
   async getTransactionById(id: string): Promise<LNToHashkeyTransaction> {
     try {
       return await this.LNToHashkeyTransactionService.findOneById(id);
@@ -53,6 +75,10 @@ export class AppService {
     }
   }
 
+  /**
+   * Retrieves all transactions from the database
+   * @returns {Promise<LNToHashkeyTransaction[]>} Array of transaction records
+   */
   async getTransactions(): Promise<LNToHashkeyTransaction[]> {
     try {
       return await this.LNToHashkeyTransactionService.findAll();
@@ -62,6 +88,11 @@ export class AppService {
     }
   }
 
+  /**
+   * Creates a Lightning Network invoice with specified parameters
+   * @param {string} amount - Amount in satoshis
+   * @returns {Invoice} Invoice object
+   */
   makeInvoice(amount: string): Invoice {
     try {
       return {
@@ -77,7 +108,13 @@ export class AppService {
     }
   }
 
-  // https://btcpay.stackstake.io/api/v1/stores/{storeId}/lightning/BTC/invoices
+  /**
+   * Initiates a transfer from Lightning Network to Hashkey Chain
+   * Creates invoice and stores transaction details
+   * @param {string} amount - Amount in satoshis
+   * @param {string} hashkeyAddress - Destination Hashkey Chain address
+   * @returns {Promise<InvoiceResponse>} Invoice creation response
+   */
   async LNToHashkey(
     amount: string,
     hashkeyAddress: string,
@@ -85,7 +122,6 @@ export class AppService {
     const invoice = this.makeInvoice(amount);
     this.logger.log('creating invoice', invoice);
 
-    // Create invoice
     try {
       const response = await axios.post(
         `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices`,
@@ -103,7 +139,7 @@ export class AppService {
         };
       }
 
-      // If invoice is created successfully, save to sqlite
+      // Save successful invoice to database
       const invoiceId = response.data.id;
       const BOLT11 = response.data.BOLT11;
 
@@ -125,6 +161,11 @@ export class AppService {
     }
   }
 
+  /**
+   * Retrieves invoice details from BTCPay Server
+   * @param {string} invoiceId - ID of invoice to retrieve
+   * @returns {Promise<InvoiceResponse>} Invoice details
+   */
   async getInvoice(invoiceId: string): Promise<InvoiceResponse> {
     try {
       const response = await axios.get(
@@ -140,28 +181,30 @@ export class AppService {
     }
   }
 
+  /**
+   * Mints hBTC tokens to a specified Hashkey Chain address
+   * @param {string} amount - Amount to mint in BTC
+   * @param {string} hashkeyAddress - Destination address for minted tokens
+   * @returns {Promise<string>} Transaction hash
+   */
   async sendToHashkeyAddress(
     amount: string,
     hashkeyAddress: string,
   ): Promise<string> {
     try {
-      // send to hashkey address using hashkey private key
       const privateKey = process.env.HASHKEY_PRIVATE_KEY;
       const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
       const wallet = new Wallet(privateKey, provider);
-      // get hashkey btc address
       const hashkeyBtcAddress = process.env.HASHKEY_BTC_ADDRESS;
       this.logger.log('hashkeyBtcAddress', hashkeyBtcAddress);
       this.logger.log('hashkeyAddress', hashkeyAddress);
       this.logger.log('amount', amount);
 
-      // Call hBTC contract to mint hBTC tokens
       const hBTCContract = new ethers.Contract(
         hashkeyBtcAddress,
         ERC20ABI,
         wallet,
       );
-      // Convert mSAT to BTC (1 BTC = 100,000,000,000 mSAT)
       const btcAmount = (Number(amount) / 100000000000).toFixed(8);
       const tx = await hBTCContract.mint(
         hashkeyAddress,
@@ -176,10 +219,12 @@ export class AppService {
     }
   }
 
-  // Query emitted events for hBTC transactions sent to HASHKEY_BRIDGE_ADDRESS
+  /**
+   * Retrieves hBTC transfer events to bridge address
+   * @returns {Promise<any>} Array of transfer events
+   */
   async getHashkeyBridgeTransactions(): Promise<any> {
     try {
-      // Query hBTC token events for transfers to HASHKEY_BRIDGE_ADDRESS
       const provider = new ethers.JsonRpcProvider(this.HASHKEY_RPC_URL);
       const wallet = new Wallet(process.env.HASHKEY_PRIVATE_KEY, provider);
       const hashkeyBridgeAddress = process.env.HASHKEY_BRIDGE_ADDRESS;
@@ -204,15 +249,19 @@ export class AppService {
     }
   }
 
+  /**
+   * Processes transfer from Hashkey Chain to Lightning Network
+   * Verifies transfer event and creates transaction record
+   * @param {HashkeyToLNInput} body - Transfer details including addresses and amount
+   * @returns {Promise<HashkeyToLNResponse>} Transaction ID
+   */
   async hashkeyToLN(body: HashkeyToLNInput): Promise<HashkeyToLNResponse> {
     try {
       this.logger.log('received hashkeyToLN', body);
       const { lnAddress, hashkeyAddress, amount, hashkeyTxId } = body;
 
-      // Query hBTC transactions deposited on Hashkey chain
       const events = await this.getHashkeyBridgeTransactions();
 
-      // Find transaction where deposited address matches input address
       const event = events.find(
         (event) => event.args[0].toLowerCase() === hashkeyAddress.toLowerCase(),
       );
@@ -222,7 +271,6 @@ export class AppService {
         return;
       }
 
-      // Save the found transaction to sqlite
       const id = await this.LNToHashkeyTransactionService.create({
         BOLT11: lnAddress,
         hashkeyAddress,
@@ -243,12 +291,16 @@ export class AppService {
     }
   }
 
-  // Handle payment received to LN BOLT11 address
+  /**
+   * Processes Lightning Network payment receipt
+   * Updates transaction status after successful payment
+   * @param {LNReceivedPaymentInput} body - Payment details including amount and BOLT11
+   * @returns {Promise<any>} Payment processing response
+   */
   async LNReceivedPayment(body: LNReceivedPaymentInput): Promise<any> {
     try {
       this.logger.log('received LNReceivedPayment', body);
 
-      // https://btcpay.stackstake.io/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/pay
       const response = await axios.post(
         `${this.BTCPAY_URL}api/v1/stores/${this.BRIDGE_CENTER_ID}/lightning/BTC/invoices/pay`,
         body,
@@ -259,7 +311,6 @@ export class AppService {
 
       this.logger.log('response', response.data);
 
-      // Update LN status to Y on success
       await this.LNToHashkeyTransactionService.update(body.id, {
         LNstatus: 'Y',
       });

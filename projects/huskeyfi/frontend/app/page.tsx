@@ -3,6 +3,7 @@ import Navbar from "./_components/Navbar";
 import SwitchComponent from "./_components/SwitchComponent";
 import { SwitchProvider } from "./context/SwitchContext";
 
+// Home component - Main page of the application
 const Home = () => {
   return (
     <main className="flex w-full flex-col items-center justify-center gap-10">

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
+// DTO for sending funds to a Hashkey address
 export class SendToHashkeyInput {
   @ApiProperty()
   @IsString()
@@ -11,6 +12,7 @@ export class SendToHashkeyInput {
   hashkeyAddress: string;
 }
 
+// Response DTO for sending funds to Hashkey
 export class SendToHashkeyResponse {
   @ApiProperty()
   @IsString()
@@ -37,6 +39,7 @@ export class SendToHashkeyResponse {
   hashkeyStatus: string;
 }
 
+// DTO for sending funds from Hashkey to Lightning Network
 export class HashkeyToLNInput {
   @ApiProperty()
   @IsString()
@@ -55,12 +58,14 @@ export class HashkeyToLNInput {
   hashkeyTxId: string;
 }
 
+// Response DTO for Hashkey to Lightning Network transfer
 export class HashkeyToLNResponse {
   @ApiProperty()
   @IsString()
   id: string;
 }
 
+// DTO for handling received Lightning Network payments
 export class LNReceivedPaymentInput {
   @ApiProperty()
   @IsString()
@@ -87,6 +92,7 @@ export class LNReceivedPaymentInput {
   sendTimeout?: number;
 }
 
+// DTO for Lightning Network invoice creation
 export class Invoice {
   @ApiProperty()
   @IsString()
@@ -105,6 +111,7 @@ export class Invoice {
   hashkeyAddress: string;
 }
 
+// Response DTO for Lightning Network invoice
 export class InvoiceResponse {
   @ApiProperty()
   @IsString()

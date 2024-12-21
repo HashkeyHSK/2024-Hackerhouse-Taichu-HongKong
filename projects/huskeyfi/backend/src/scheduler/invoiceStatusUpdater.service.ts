@@ -105,7 +105,7 @@ export class InvoiceStatusUpdaterService {
       toNetwork: 'H',
     });
 
-    // // Update all found transactions to Processing status
+    // Update all found transactions to Processing status
     for (const transaction of transactions) {
       await this.transactionRepository.update(transaction.id, {
         hashkeyStatus: 'P',
@@ -155,8 +155,14 @@ export class InvoiceStatusUpdaterService {
     }
   }
 
-  // 해시키체인에서 브릿지 받은 트랜잭션을 처리하는 함수
-  // 1. fromNetwork가 H이고 toNetwork가 L, hashkeyStatus가 Y, LNstatus가 N인 트랜잭션을 조회한다.
+  /**
+   * Function to process transactions received from Hashkey Chain bridge
+   * 1. Queries transactions where:
+   *    - fromNetwork is 'H' (Hashkey)
+   *    - toNetwork is 'L' (Lightning)
+   *    - hashkeyStatus is 'Y'
+   *    - LNstatus is 'N'
+   */
   @Cron('*/5 * * * * *') // Runs every 5 seconds
   async handleHashkeyBridgeTransaction() {
     const transactions = await this.transactionRepository.findAll({
@@ -176,8 +182,8 @@ export class InvoiceStatusUpdaterService {
           amount: transaction.amount,
         };
 
-        // amount 가 "0.00000001" 형태로 나오는데, mSAT 형태로 변경해준다.
-        // 소수점은 없어야 한다.
+        // Convert amount from "0.00000001" format to mSAT format
+        // Result should not contain decimal points
         body.amount = (Number(transaction.amount) * 100000000000).toString();
 
         body.amount = body.amount.split('.')[0];

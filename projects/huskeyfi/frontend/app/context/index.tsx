@@ -7,14 +7,14 @@ import React, { type ReactNode } from "react";
 import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
 import { projectId, wagmiAdapter } from "../config";
 
-// Set up queryClient
+// Initialize a new QueryClient instance for managing queries
 const queryClient = new QueryClient();
 
 if (!projectId) {
   throw new Error("Project ID is not defined");
 }
 
-// Set up metadata
+// Configure application metadata
 const metadata = {
   name: "Lightning Huskey",
   description: "Lightning Huskey",
@@ -22,7 +22,7 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };
 
-// Create the modal
+// Initialize AppKit with configuration
 createAppKit({
   adapters: [wagmiAdapter],
   projectId,

@@ -1,7 +1,8 @@
+import TimerIcon from "@/public/svgs/TimerIcon";
 import { useEffect, useState } from "react";
 
 type TimerProps = {
-  className: string;
+  className?: string;
   min: number;
   sec: number;
   handleFinish?: () => void;
@@ -32,7 +33,8 @@ const Timer = ({ className, min, sec, handleFinish }: TimerProps) => {
   });
 
   return (
-    <div className={className}>
+    <div className={`flex items-center gap-2 ${className}`}>
+      <TimerIcon />
       {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
     </div>
   );

@@ -9,6 +9,8 @@ import Timer from "./Timer";
 import CopyClipBoardButton from "./CopyClipBoardButton";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useSetAtom } from "jotai";
+import { TransactionHashAtom } from "../_store";
 
 type LightningInvoiceModalProps = {
   invoiceId: string;
@@ -23,6 +25,8 @@ const LightningInvoiceModal = ({
   const [QRValue, setQRValue] = useState("");
   const [LNstatus, setLNstatus] = useState<"Y" | "N" | "P">("N");
 
+  const setTransactionHash = useSetAtom(TransactionHashAtom);
+
   const handleGetInvoice = async () => {
     const res = await getInvoiceTransaction({ invoiceId });
     setQRValue(res.BOLT11);
@@ -34,6 +38,7 @@ const LightningInvoiceModal = ({
       }
 
       if (updatedInvoice.hashkeyStatus === "Y") {
+        setTransactionHash(updatedInvoice.hashkeyTx);
         successToast("Bridge successful");
         router.refresh();
         clearInterval(timer);

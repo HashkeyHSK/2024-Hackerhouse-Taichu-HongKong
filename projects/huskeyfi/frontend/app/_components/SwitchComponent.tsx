@@ -3,9 +3,13 @@
 import SwitchIcon from "@/public/svgs/SwitchIcon";
 import ArrowRightIcon from "@/public/svgs/ArrowRightIcon";
 import { useSwitch } from "../context/SwitchContext";
+import { useSetAtom } from "jotai";
+import { TransactionHashAtom } from "../_store";
 
 const SwitchComponent = () => {
   const { isToLN, toggleSwitch } = useSwitch();
+
+  const setTransactionHash = useSetAtom(TransactionHashAtom);
 
   return (
     <div className="flex w-full items-center gap-2 text-2xl">
@@ -18,7 +22,10 @@ const SwitchComponent = () => {
       </span>
       <div
         className="flex cursor-pointer items-center justify-center rounded border border-huskey-primary-400 p-1"
-        onClick={toggleSwitch}
+        onClick={() => {
+          toggleSwitch();
+          setTransactionHash(undefined);
+        }}
       >
         <SwitchIcon />
       </div>

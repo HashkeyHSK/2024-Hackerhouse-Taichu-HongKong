@@ -34,7 +34,7 @@ const LightningInvoiceModal = ({
       }
 
       if (updatedInvoice.hashkeyStatus === "Y") {
-        successToast("Payment successful");
+        successToast("Bridge successful");
         router.refresh();
         clearInterval(timer);
         onClose();

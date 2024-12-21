@@ -1,7 +1,8 @@
 # Hash Perp
 
 ## Overview
-A decentralized perp,LP comes from HypherIndex, Open and transparent, Support decentralized liquidation
+A decentralized perpetual protocol whose liquidity is based on the HypherIndex Swap on the HashKey chain.
+Open and transparent, Support decentralized liquidation.
 
 Isolated Margin Mode
 

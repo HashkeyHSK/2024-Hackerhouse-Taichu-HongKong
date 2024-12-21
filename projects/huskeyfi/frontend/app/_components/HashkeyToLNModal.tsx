@@ -26,7 +26,7 @@ const HashkeyToLNModal = ({ id, onClose }: HashkeyToLNModalProps) => {
       }
 
       if (updatedInvoice.LNstatus === "Y") {
-        successToast("Bridge successful");
+        successToast("Bridge completed successfully");
         router.refresh();
         clearInterval(timer);
         onClose();

@@ -49,7 +49,7 @@ Through this, we offer long-term value to the HashKey Chain ecosystem—includin
 
 
 ## Tech Stack
-- Frontend: Next.js, Ethers.js
+- Frontend: Nextjs, Ethersjs
 - Backend: Fast Api, Flask, Lang Chain
 - Other: truffle, solidity
 

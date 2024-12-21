@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { headers } from "next/headers";
 import AppKitProvider from "./context";
-import Navbar from "./_components/Navbar";
 import { ToastContainer } from "react-toastify";
 import JotaiProvider from "./_providers/JotaiProvider";
 

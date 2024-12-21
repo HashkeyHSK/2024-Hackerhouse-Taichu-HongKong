@@ -2,19 +2,25 @@
 
 ## Overview
 
-Lightning Huskey is a cross-chain bridge that seamlessly transfers BTC from the Lightning Network to the Hashkey Chain, unlocking new liquidity and expanding the chain’s total value locked (TVL).
-By enabling direct BTC integration into HSK’s DeFi and staking ecosystems, Lightning Huskey empowers users to leverage their Bitcoin more efficiently and cost-effectively than ever before.
+Lightning Huskey is a cross-chain bridge that seamlessly transfers BTC from the Lightning
+Network to the Hashkey Chain, unlocking new liquidity and expanding the chain’s total
+value locked (TVL). By enabling direct BTC integration into HSK’s DeFi and staking
+ecosystems, Lightning Huskey empowers users to leverage their Bitcoin more efficiently and
+cost-effectively than ever before.
 
 ## Tech Stack
 
 - Frontend: Next.js, TailwindCSS
-- Backend: Nest.js
-- Contract: Solidity
+- Backend: NestJS, Ethers
+- Smart Contract: Solidity
+- Database: SQLite
+- Lightning Network Server : BTCPay(Open Source)
 - Design: Figma, Adobe Illustrator
 
 ## Demo
 
-- Project Deck: [TBU]
+- Demo Video: [YouTube link]
+- Project Deck: [Google Slides link]
 
 ## Team
 

@@ -9,9 +9,8 @@ Multiple kinds of stable coins can swap each other in one pool, with lowest fee 
 
 ## Demo
 - Demo Video: https://youtu.be/KzEKpUIHuI8
-- Demo: https://stable-interface-i6sjea1b-paul0x23.4everland.app
+- Demo: https://stable-interface-vaorme4y-paul0x23.4everland.app
 - Project Deck: https://pitch.com/v/stableswap-p6xbyh
 
 ## Team
 - George - Solidity Developer
-- Zisu - Full Stack Developer

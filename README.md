@@ -67,9 +67,6 @@ PolyFlow pioneers a new financial paradigm, evolving from "Buy Now, Pay Later" t
 - **PID** (Payment ID): [https://github.com/Polyflow-Protocol/Demo_PID_Contracts](https://github.com/Polyflow-Protocol/Demo_PID_Contracts)
 - **PLP** (PolyFlow Liquidity Pool): [https://github.com/Polyflow-Protocol/Demo_PLP_Contracts](https://github.com/Polyflow-Protocol/Demo_PLP_Contracts)
 ---
-- **HINT**： The **PLP_SDK, PID, and PLP** Contract codebases are not yet publicly accessible. Please contact the team to request access permissions.<br>
-Contact: Konit &nbsp;｜&nbsp; 📧Email:[konit.block@protonmail.com](konit.block@protonmail.com)
----
 
 ## 📑 Code Structure
 <div align="center">

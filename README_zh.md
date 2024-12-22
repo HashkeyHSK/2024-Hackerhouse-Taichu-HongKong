@@ -60,9 +60,6 @@ PolyFlow 是首个PayFi 基础设施，通过提供核心产品 **PID(支付 ID)
 - **PID** (Payment ID): [https://github.com/Polyflow-Protocol/Demo_PID_Contracts](https://github.com/Polyflow-Protocol/Demo_PID_Contracts)
 - **PLP** (PolyFlow Liquidity Pool): [https://github.com/Polyflow-Protocol/Demo_PLP_Contracts](https://github.com/Polyflow-Protocol/Demo_PLP_Contracts)
 ---
-- **提示**：由于 **PLP_SDK, PID, and PLP** 尚未开源，请联系团队获取阅读权限.<br>
-联系人: Konit &nbsp;｜&nbsp; 📧邮件:[konit.block@protonmail.com](konit.block@protonmail.com)
----
 
 ## 📑 代码结构
 <div align="center">

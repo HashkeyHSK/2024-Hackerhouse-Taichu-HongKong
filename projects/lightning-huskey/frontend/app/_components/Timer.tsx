@@ -19,6 +19,7 @@ const Timer = ({ className, min, sec, handleFinish }: TimerProps) => {
   // Effect hook to handle countdown logic
   useEffect(() => {
     // Set up interval to decrement timer every second
+    // eslint-disable-next-line prefer-const
     let myInterval = setInterval(() => {
       // Decrement seconds if greater than 0
       if (seconds > 0) {
@@ -29,6 +30,7 @@ const Timer = ({ className, min, sec, handleFinish }: TimerProps) => {
         if (minutes === 0) {
           // Clear interval and call finish handler when timer ends
           clearInterval(myInterval);
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           handleFinish !== undefined && handleFinish();
         } else {
           // Decrement minutes and reset seconds when minute changes

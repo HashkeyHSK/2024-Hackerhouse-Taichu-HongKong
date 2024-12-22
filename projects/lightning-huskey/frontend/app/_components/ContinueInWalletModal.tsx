@@ -1,7 +1,7 @@
 "use client";
 
-import Modal from "./Modal";
 import Image from "next/image";
+import Modal from "./Modal";
 
 // Props type definition for ContinueInWalletModal
 type ContinueInWalletModalProps = {

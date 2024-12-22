@@ -3,9 +3,9 @@
 // Import necessary icons and hooks
 import SwitchIcon from "@/public/svgs/SwitchIcon";
 import ArrowRightIcon from "@/public/svgs/ArrowRightIcon";
-import { useSwitch } from "../context/SwitchContext";
 import { useSetAtom } from "jotai";
 import { TransactionHashAtom } from "../_store";
+import { useSwitch } from "../context/SwitchContext";
 
 // Component that handles switching between HashKey Chain and Lightning Network
 const SwitchComponent = () => {

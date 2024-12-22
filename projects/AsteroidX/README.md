@@ -14,7 +14,7 @@ RewardAsteroidX is a blockchain-based reward distribution system designed for th
 
 ## Demo
 
-- Demo Video: [YouTube link]
+- Demo Video: https://drive.google.com/file/d/1YW6L-jBKRsh2ysF98yXLb-1TzNoEsNpr/view?usp=sharing
 - Project Deck: https://bit.ly/3Xm11Fg
 - Product Book: https://asteroid-x-1.gitbook.io/asteroid-x-product-book/
 

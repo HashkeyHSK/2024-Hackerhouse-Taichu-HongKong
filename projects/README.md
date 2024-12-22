@@ -1,5 +1,5 @@
 
-# 🌐 PicWe - The Next Generation Liquidity Infrastructure 🚀
+# PicWe - The Next Generation Liquidity Infrastructure 🚀
 
 ## 📝 Overview
 PicWe is revolutionizing the DeFi space by bringing and retaining omni-chain liquidity, enabling users to maximize their yields across multiple blockchains. Our cutting-edge platform seamlessly integrates with various networks, providing a unified and user-friendly experience for liquidity providers and traders alike. 💰
@@ -11,7 +11,7 @@ PicWe is revolutionizing the DeFi space by bringing and retaining omni-chain liq
 - 🐳 Deployment: Docker, AWS
 
 ## 🎥 Demo
-- github: https://github.com/Picwe/core-contract.git
+- 🌐 Github: https://github.com/Picwe
 - 📺 Demo Video: https://www.youtube.com/watch?v=YmsmXFNu7Ww
 - 📊 Project Deck: https://docs.google.com/presentation/d/1PJRih2iy2sMd0gasZFWOIfLaV9sgkPeNNvme4OUSKxo/edit?usp=sharing
 

@@ -6,7 +6,7 @@ This project collects users’ sleep data through wearable devices (such as wris
 - Smart Contract: Solidity
 
 ## Demo
-- Demo Video:  https://www.youtube.com/@InternationalNewEconomic-ol3fm
+- Demo Video:  [https://www.youtube.com/@InternationalNewEconomic-ol3fm](https://youtu.be/qCww1FHMug8?si=f8n_7xMzbcDrgaDs)
 - Project Deck: https://explorer.hsk.xyz/address/0xB82744E309db4d24a2615CC799ED7C20E11327aB
 
 ## Team

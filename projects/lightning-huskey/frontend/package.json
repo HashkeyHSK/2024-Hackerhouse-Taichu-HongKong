@@ -1,0 +1,48 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "PORT=$(grep 'PORT' .env.development | cut -d '=' -f2 || echo '') && PORT=${PORT:-7008} && next dev -p $PORT",
+    "build": "next build",
+    "start": "PORT=$(grep 'PORT' .env | cut -d '=' -f2 || echo '') && PORT=${PORT:-7008} && next start -p $PORT",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reown/appkit": "^1.6.2",
+    "@reown/appkit-adapter-wagmi": "^1.6.2",
+    "@tanstack/react-query": "^5.62.8",
+    "jotai": "^2.10.4",
+    "next": "14.2.18",
+    "qrcode.react": "^4.2.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-toastify": "^11.0.2",
+    "viem": "^2.21.55",
+    "wagmi": "^2.14.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-next": "14.2.18",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "postcss": "^8",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

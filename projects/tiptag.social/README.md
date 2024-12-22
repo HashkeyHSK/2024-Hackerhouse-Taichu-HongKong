@@ -10,7 +10,7 @@ AI Agent Swarm Framework & Social Fair Launchpad.
 - Deployment: Docker, AWS
 
 ## Demo
-- Demo Video: /
+- Demo Video: /demo_video.mp4
 - Project Deck: /TipTag CN_2024.key
 
 ## Team

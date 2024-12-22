@@ -1,9 +1,9 @@
 "use client";
 
+import CloseSmallIcon from "@/public/svgs/CloseSmallIcon";
 import { useEffect, useRef, MouseEvent, useState } from "react";
 import ModalPortal from "./ModalPortal";
 import useObserve from "../_hooks/useObserve";
-import CloseSmallIcon from "@/public/svgs/CloseSmallIcon";
 
 // Props type definition for Modal component
 type ModalProps = {
@@ -63,7 +63,11 @@ const Modal = ({
             <h3 className="px-5 py-4 text-base font-medium text-white">
               {title}
             </h3>
-            <button onClick={onClose} className="absolute right-5 top-5">
+            <button
+              onClick={onClose}
+              className="absolute right-5 top-5"
+              type="button"
+            >
               <CloseSmallIcon />
             </button>
           </div>

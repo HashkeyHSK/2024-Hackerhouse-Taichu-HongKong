@@ -3,6 +3,9 @@
 import { useAppKit } from "@reown/appkit/react";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
+import { formatEther, parseUnits } from "viem";
+import { useAtom } from "jotai";
+import Link from "next/link";
 import { getBalance, GetBalanceReturnType, writeContract } from "@wagmi/core";
 import { config } from "../config";
 import { HBTC, LN_BRIDGE } from "../constants/constants";
@@ -11,15 +14,12 @@ import { useSwitch } from "../context/SwitchContext";
 import SendButton from "./SendButton";
 import LightningInvoiceModal from "./LightningInvoiceModal";
 import createInvoice from "../_services/createInvoice";
-import { formatEther, parseUnits } from "viem";
 import ERC20Abi from "../_abis/ERC20Abi";
 import { errorToast } from "../_utils/notifications";
 import hashkeyToLN from "../_services/hashkeyToLN";
 import ContinueInWalletModal from "./ContinueInWalletModal";
 import HashkeyToLNModal from "./HashkeyToLNModal";
-import { useAtom } from "jotai";
 import { TransactionHashAtom } from "../_store";
-import Link from "next/link";
 
 // Main input component for handling token transfers
 const InputBox = () => {

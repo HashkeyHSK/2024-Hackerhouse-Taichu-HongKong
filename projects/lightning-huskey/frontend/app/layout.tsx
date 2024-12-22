@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { headers } from "next/headers";
-import AppKitProvider from "./context";
 import { ToastContainer } from "react-toastify";
+import AppKitProvider from "./context";
 import JotaiProvider from "./_providers/JotaiProvider";
 
 // Configure Pretendard font with variable weights

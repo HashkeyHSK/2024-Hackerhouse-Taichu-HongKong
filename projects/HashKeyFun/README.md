@@ -77,7 +77,7 @@ Our ultimate goal? **Cultivate a healthier and more sustainable chain ecosystem*
 ---
 
 ## **Demo**  
-- **Demo Video**: [*YouTube link*]  
+- **Demo Video**: [*YouTube link*](https://www.youtube.com/watch?v=rzfF2eBbqfc)
 - **Project Deck**: [*Google Slides link*](https://docs.google.com/presentation/d/1ppxDpwhQGZC7bMloAjnJ6ILskskPAVceNOTqLpvCUu4/edit#slide=id.g3262298bb7d_2_100)  
 - **Source Code**: [*Github Organization*](https://github.com/orgs/HashKeyFun/repositories)  
 

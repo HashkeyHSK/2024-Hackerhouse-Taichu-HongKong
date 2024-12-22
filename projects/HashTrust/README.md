@@ -9,6 +9,7 @@ HashTrust aims at enhancing on-chain interaction security on Hashkey Chain & bui
 
 ## Demo
 - Demo Link: <https://main.d1ykt1p4locz8o.amplifyapp.com/hashkey-chain-testnet>
+- Demo Video: <https://youtu.be/oP14zViQblA>
 - Project Deck: <https://docs.google.com/presentation/d/1gK4KESkd_sF5HocT-ATFSa34btrt1ZVp547knSfMNJ8/edit?usp=sharing>
 - Github Source: <https://github.com/trustamaster/DID-attestation>
 

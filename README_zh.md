@@ -11,7 +11,7 @@
 ## 🚀 概览
 PolyFlow 是首个PayFi 基础设施，通过提供核心产品 **PID(支付 ID)** 作为合规准入的入口，和 **PLP(PolyFlow 流动性池)** 作为资金托管的入口，推动 RWA 与 DeFi 无缝连接，实现从 **“Buy Now, Pay Later”** 到 **“Buy Now, Pay Never”** 的全新金融范式🌟
 
-🌐 **官方网站**：[https://polyflow.tech/](https://polyflow.tech/)  &nbsp;&nbsp;| &nbsp;&nbsp; 🐦 **推特/X**：[https://x.com/Polyflow_PayFi](https://x.com/Polyflow_PayFi)
+- 🌐 **演示链接**：[https://hashkey-xi.vercel.app/](https://hashkey-xi.vercel.app/)  &nbsp;&nbsp;| &nbsp;&nbsp; 🐦 **推特/X**：[https://x.com/Polyflow_PayFi](https://x.com/Polyflow_PayFi)
 
 ---
 

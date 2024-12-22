@@ -32,15 +32,14 @@
                 <div class="title">Get started easily</div>
                 <div class="card-container">
                     <div class="card disable">
-                        <h3>Bitrace Pro</h3>
-                        <p>协作式加密追踪和分析平台</p>
+                        <h3>协作式加密追踪和分析平台</h3>
                         <p>通过快速了解犯罪模式，实现更快、更准确的调查、追踪资金动向、识别异常情况并发现新线索。</p>
                         <div class="get-started">
                             <a>快速开始</a>
                         </div>
                     </div>
                     <div class="card">
-                        <h3>Detrust</h3>
+                        <h3>TrustLink</h3>
                         <p>区块链风险监控和管理平台</p>
                         <div class="get-started" @click="gotoTracker">
                             <a href="#">快速开始</a>

@@ -26,6 +26,7 @@ export function useAddressTracker(graphContainer, searchValue) {
         console.log('搜索地址:', value);
         // 在这里处理搜索逻辑
         fetchAddressGraph();
+        fetchAddressInfo(value); 
     };
 
     const initGraph = () => {
@@ -149,7 +150,7 @@ export function useAddressTracker(graphContainer, searchValue) {
             const nodeItem = evt.item;
             console.log('edge:click', nodeItem)
             const { from, to } = nodeItem._cfg.model;
-            
+                   
             await fetchEdgeInfo(from, to)
             renderMode.value = REDNER_MODE.TRACKER;
         });
@@ -253,6 +254,7 @@ export function useAddressTracker(graphContainer, searchValue) {
             });
 
             edgeDetailData.value = data;
+            console.log('==fetchEdgeInfo==', data);
 
             pannelLoading.value = false;
         } catch (e) {

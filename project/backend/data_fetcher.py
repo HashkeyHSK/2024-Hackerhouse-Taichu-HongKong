@@ -2,6 +2,7 @@ import pandas as pd
 import urllib, json
 import random
 from sqlalchemy import create_engine
+import concurrent.futures
 
 class DataFetcher():
     def __init__(self):
@@ -91,7 +92,7 @@ class DataFetcher():
                 result[0]['score'] = random.randint(0, 90)
             return result[0]
         else:
-            return {'address':address, 'first_tx_time':0, 'gas_used_sum':0, 'last_tx_time':0, 'score':0, 'tag':'风险未知', 'token_contract_address_hash':'', 'token_type':'ERC-20', 'tx_count':0, 'tx_outer_address_count':0, 'value':0, 'value_fetched_at':0}
+            return {'address':address, 'first_tx_time':0, 'gas_used_sum':0, 'last_tx_time':0, 'score':0, 'tag':tag_str.strip(';'), 'token_contract_address_hash':'', 'token_type':'ERC-20', 'tx_count':0, 'tx_outer_address_count':0, 'value':0, 'value_fetched_at':0}
 
     def fetch_node_txs_info(self, address):
         """ 获取地址交易信息
@@ -144,15 +145,17 @@ class DataFetcher():
                             
                     from public.transactions where '0x' || ENCODE(from_address_hash, 'hex')='{from_address}' AND '0x' || ENCODE(to_address_hash, 'hex')='{to_address}' group by from_address_hash, to_address_hash
     """
+        print(from_address, to_address)
         df = pd.read_sql_query(sql, self.grdata_engine)
         df = df.fillna("NULL")
-        edges = df.apply(lambda row: {"from": row["from_address"], "to": row["to_address"], "tx_count":row['tx_count'], "value_sum": row['value_sum'], 'first_tx_time':row['first_tx_time'], 'last_tx_time':row['last_tx_time'], 'score':random.randint(1, 100)}, axis=1).tolist()
-        return edges[0] if len(edges)>0 else {'from':from_address, "to":to_address, "tx_count":1, "value_sum":0, "first_tx_time":0, "last_tx_time":0, 'score':0, 'tag':'其他交易'}
+        edges = df.apply(lambda row: {"from": row["from_address"], "to": row["to_address"], "tx_count":row['tx_count'], "value_sum": row['value_sum'], 'first_tx_time':row['first_tx_time'], 'last_tx_time':row['last_tx_time'], 'score':random.randint(1, 100), 'tag':row['tag']}, axis=1).tolist()
+        return edges[0] if len(edges)>0 else {'from':from_address, "to":to_address, "tx_count":1, "value_sum":0, "first_tx_time":0, "last_tx_time":0, 'score':0, 'tag':'风险未知'}
 
 
     def fetch_address_info(self, address):
         """ 获取地址信息汇总的接口
         """
+        '''
         node_balance = self.fetch_node_balances_info(address)
         node_txs = self.fetch_node_txs_info(address)
         edges = self.fetch_node_all_edges(address)
@@ -160,6 +163,18 @@ class DataFetcher():
         address_node_info = node_balance | node_txs
 
         return {"node_info": address_node_info, "node_edges": edges}
+        '''
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            # 将函数和参数传递给 executor.map，它会并发地执行这些函数
+            results = executor.map(lambda f: f(address), (self.fetch_node_balances_info, self.fetch_node_txs_info, self.fetch_node_all_edges))
+        
+            # results 是一个迭代器，包含每个函数返回的结果
+            node_balance, node_txs, edges = results
+
+            # 合并结果
+            address_node_info = node_balance | node_txs
+            return {"node_info": address_node_info, "node_edges": edges}
 
 
     def fetch_address_graph(self, address):
@@ -186,14 +201,12 @@ class DataFetcher():
         nodes = nodes_df.apply(lambda row: {"id": row["address"], "transactions_count": row["transactions_count"], "token_transfers_count": row["token_transfers_count"], "gas_used": row["gas_used"], "tag": row["tag"], "label": row["address"]}, axis=1).tolist()
         
         edges = df.apply(lambda row: {"from": row["from_address"], "to": row["to_address"], "value":1, "tag": f"交易次数:{row['tx_cnt']}"}, axis=1).tolist()
-        print(edges)
 
         return {"nodes": nodes, "edges": edges}
 
 
 #data_fetcher = DataFetcher()
-#print('---')
-#print(data_fetcher.fetch_node_balances_info('0x0197d2ca53282ec166cf1a1464ce8ed07459d8ef'))
+#print(data_fetcher.fetch_node_balances_info('0x6c2c15e5bb4ac9c7b1c12890ca8d8a088fa24bbb'))
 #print(data_fetcher.fetch_node_edge_info('0xf4b59f76657de777e008f8cb07f752148cfb591f', '0x4937121ce9d6bbe48c2479feead9ea27b3732331'))
 #res = data_fetcher.fetch_address_info('0xf4b59f76657de777e008f8cb07f752148cfb591f')
 #print(res)

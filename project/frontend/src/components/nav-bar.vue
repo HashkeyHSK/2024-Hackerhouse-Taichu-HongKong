@@ -9,11 +9,11 @@
                 <li class="more">
                     <a href="#">产品和服务</a>
                     <ul class="dropdown">
-                        <li @click="goToTracker"><a href="#">Detrust</a>
-                            <p>A Blockchain Risk Monitoring and Management Platform</p>
+                        <li @click="goToTracker"><a href="#">TrustLink</a>
+                            <p>区块链风险监控和管理平台</p>
                         </li>
-                        <li class="disable"><a href="#">Bitrace Pro</a>
-                            <p>A Collaborative Crypto Tracing and Analysis Platform</p>
+                        <li class="disable"><a href="#">VIP Pro</a>
+                            <p>协作式加密追踪和分析平台</p>
                         </li>
                     </ul>
                 </li>

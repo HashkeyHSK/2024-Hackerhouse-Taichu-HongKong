@@ -79,11 +79,40 @@
                   </a-col>
                 </a-row>
               </div>
-              <div class="scroll-list" v-else>
+
+              <div class="scroll-list" v-if="renderMode === REDNER_MODE.TRACKER">
+                <a-row style="margin-top: 15px;">
+                  <a-col span="12">
+                    <a-typography-text class="one-line">发送方</a-typography-text>
+                    <a-typography-text class="value-text">{{ edgeDetailData?.from }}</a-typography-text>
+                  </a-col>
+                </a-row>  
+                <a-row style="margin-top: 15px;">
+                  <a-col span="12">
+                    <a-typography-text class="one-line">接收方</a-typography-text>
+                    <a-typography-text class="value-text">{{ edgeDetailData?.to }}</a-typography-text>
+                  </a-col>
+                </a-row>
+                <a-row style="margin-top: 15px;">
+                  <a-col span="12">
+                    <a-typography-text class="one-line">交易次数</a-typography-text>
+                    <a-typography-text class="value-text">{{ edgeDetailData?.tx_count }}</a-typography-text>
+                  </a-col>
+                </a-row>
+                <a-row style="margin-top: 15px;">
+                  <a-col span="12">
+                    <a-typography-text class="one-line">首次交易时间</a-typography-text>
+                    <a-typography-text class="value-text">{{ dayjs(edgeDetailData?.firstTxTime).format('YYYY-MM-DD HH:mm:ss') }}</a-typography-text>
+                  </a-col>
+                </a-row>
+
+              </div>
+
+<!--              <div class="scroll-list" v-else>
                 <a-table class="label" :columns="edgeTableData.columns" :data-source="edgeTableData.data" row-key="id"
                   :pagination="false" />
               </div>
-
+-->
             </a-card>
           </a-col>
         </a-row>

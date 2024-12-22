@@ -1,7 +1,7 @@
 <template>
     <header>
         <img src="../assets/logo-alpha.png" alt="Logo" class="logo" />
-        <h1>如何摆脱分析链监测需求，请联系我们</h1>
+        <h1>查地址，上鹰眼查</h1>
     </header>
     <div class="search-bar">
         <input v-model="searchValue" type="text" placeholder="请输入地址" @keyup.enter="onSearch" />
@@ -21,6 +21,7 @@
 import { ref, defineModel, defineEmits } from 'vue';
 const emit = defineEmits(['search']);
 const searchValue = defineModel("searchValue")
+console.log('--------')
 console.log(searchValue);
 const tags = ref([
     '# Phishing Scam',

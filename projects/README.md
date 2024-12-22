@@ -10,6 +10,7 @@ Fufuture redefines the way DeFi derivatives are traded, helping users seamlessly
 ## Demo
 - Demo Video: https://medium.com/@Fufuture
 - Project Deck: https://fufuture.gitbook.io/fufuture/
+- Hashkey Testnet : https://nt.fufuture.io/u/trade
 
 ## Team
 - Zack - Backend Developer

@@ -12,7 +12,6 @@ This time we integrate hsk chain with AA and implement aa token trasfer.
 ## Tech Stack
 - Frontend: React, TailwindCSS, Plasmo
 - Backend: Node.js, Express
-- AI: OpenAI API, Langchain
 - Deployment: AWS
 
 ## Demo

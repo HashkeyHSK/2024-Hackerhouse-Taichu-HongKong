@@ -9,7 +9,7 @@ Designed to help blockchain entrepreneurs and investors avoid risk and ensure co
 - Other: postgresql
 
 ## Demo
-- Demo Video: https://youtu.be/HKVW9Kb6ZPw
+- Demo Video: https://youtu.be/g1u-Xi9GWNs
 - Project Deck: https://drive.google.com/drive/folders/1kfUQ_mjtFe6p2mpAI2Q_5EW1_0_ncWqG
 
 ## Team

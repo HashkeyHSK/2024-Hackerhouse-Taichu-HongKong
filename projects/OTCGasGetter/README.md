@@ -13,7 +13,7 @@ OTCGasGetter 是一个无需信任的、基于乐观执行的、带有仲裁退�
 ## Demo
 
 - Demo Video: [YouTube link](https://youtu.be/0XMx8eyT0HQ)
-- Project Deck: [Google Slides link](https://drive.google.com/file/d/155ianepxqrkF5-cBw6yznxGNV7_rHq-s/view?usp=drive_link)
+- Project Deck: [Google Slides link](https://drive.google.com/file/d/1UdAG-fne4BQuiJ9EQNNzgzLIaJJHwHBs/view?usp=drive_link)
 - Project Source Code: [Github](https://github.com/jeasonzhang-eth/otc_gas_getter_frontend)
 - Project Webside: [Vercel](https://otcgasgetterfrontend.vercel.app)
 

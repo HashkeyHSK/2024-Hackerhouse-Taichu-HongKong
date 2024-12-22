@@ -33,4 +33,4 @@ Features include:
 ## Team
 
 - Stark - Full Stack Developer & Product Manager
-- Cedric - Chrome Extension Developer
+- Cedric - Chrome Extension Developer.

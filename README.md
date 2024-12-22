@@ -1,4 +1,4 @@
-# Hash Perp
+# Lego Perpetual Protocol
 
 ## Overview
 A decentralized perpetual protocol whose liquidity is based on the HypherIndex Swap on the HashKey chain.

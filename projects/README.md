@@ -7,7 +7,7 @@ Likwid Protocol, through liquidity pools based on Uniswap V4, provides a fully d
 - contract: solidity
 
 ## Demo
-- Demo Video: https://liwkid.fi
+- Demo Video: https://likwid.fi
 - Project Deck: https://docsend.com/view/wt5wp2bkxihv9brf
 
 ## Team

@@ -23,3 +23,4 @@ This time we integrate hsk chain with AA and implement aa token trasfer.
 - Xixi - COO
 - Skyhigh - Product
 - Damao - Full Stack Developer
+- Tiyo - Frontend

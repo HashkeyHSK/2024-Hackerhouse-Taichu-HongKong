@@ -8,8 +8,9 @@ Fintech is changing day by day, and RWA's new technology not only empowers digit
 - Smart Contract: Solidity
 
 ## Demo
-- Demo Video: https://youtu.be/2NH8W5BebYo
-- Demo: https://www.rwa.ltd/
+- Demo Video: https://youtu.be/fWMfnETWyUI?si=mBkCYE_RB2-2C1zw
+- Demo Show URL: https://www.chinanft.hk/#/rwa
+- Demo Official Website: https://www.rwa.ltd/
 
 ## Team
 - Feike RWA.ltd founder

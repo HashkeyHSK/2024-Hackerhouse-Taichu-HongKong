@@ -59,7 +59,7 @@ When traders have insufficient available balance to cover the funding fees, the 
 
 ## Demo
 - Demo Video: https://youtu.be/_pMC7CS4LLM
-- Project Deck: https://docs.google.com/presentation/d/1MmCn9ODEe9NXVr6pWjns6Yj9H_4j20B5v9J_Pmm6Gdw/edit?usp=sharing
+- Project Deck: https://docs.google.com/presentation/d/1vVf2yXQXuBvcK37CN3RxmjoWHsJzBDYubrtYNEYPOQ8/edit?usp=sharing
 
 ## Team
 - Zisu - Full Stack Developer

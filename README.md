@@ -1,80 +1,78 @@
-# HackerHouse Projects Showcase
+<img src="./images/icon.jpg" alt="Icon" width="150" height="150"> 
+
+# PolyFlow 🚀
+
+---
+
+🌐 **Language**: [English](./README.md)   | [中文](./README_zh.md)  
+
+---
+
+## 🚀 Overview
+PolyFlow is the first PayFi infrastructure designed to seamlessly connect **RWA** (Real-World Assets) with **DeFi**. It achieves this by introducing two core products:
+
+- **PID** (Payment ID): The gateway for compliance access.  
+- **PLP** (PolyFlow Liquidity Pool): The entry point for fund custody.  
+
+PolyFlow pioneers a new financial paradigm, evolving from "Buy Now, Pay Later" to **"Buy Now, Pay Never"**. 🌟
+
+🌐 **Demo URL**: [https://hashkey-xi.vercel.app/](https://hashkey-xi.vercel.app/) &nbsp;&nbsp;| &nbsp;&nbsp; 🐦 **Twitter/X**：[https://x.com/Polyflow_PayFi](https://x.com/Polyflow_PayFi) 
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend:
+- **Next.js**、**TailwindCSS**、**Wagmi**、**RainbowKit**、**TypeScript**
+
+### Backend:
+- **Golang**、**MySQL**、**Redis**
+
+### Smart Contract:
+- **Solidity**、**JavaScript**、**Hardhat**、**Foundry**
+
+### Deployment:
+- **Vercel**、**Docker**、**Kubernetes**、**AWS**
+
+---
+
+## 🎥 Demo
+- 📹 **Demo Video**: [https://youtu.be/Cwd-mCw5IVw](https://youtu.be/Cwd-mCw5IVw)
+- 📜 **Project Deck**: [https://docs.google.com/presentation/d/1fIdHYbkDmidwaaYW3-xW0S2nGWRrqeTMgiMbMK54Fns/edit?usp=sharing](https://docs.google.com/presentation/d/1fIdHYbkDmidwaaYW3-xW0S2nGWRrqeTMgiMbMK54Fns/edit?usp=sharing)
+
+- 🌐 **Demo URL**: [Try Demo](https://hashkey-xi.vercel.app/)
+
+---
+
+## 👥 Team
+
+- **Konit** - Architect  
+- **Kevin** - Product Manager
+- **Shera** - Head of Ecosystem  
+
+---
+
+## 📂 Code
 
 
-Welcome to the HackerHouse Projects Showcase! This repository features all the amazing projects built during HackerHouse.
+### Frontend:
+- **Demo_Frontend**: [https://github.com/Polyflow-Protocol/Demo_Frontend](https://github.com/Polyflow-Protocol/Demo_Frontend)
 
-## How to Submit Your Project
+### Backend:
+- **Demo_Backend**: [https://github.com/Polyflow-Protocol/Demo_backend](https://github.com/Polyflow-Protocol/Demo_backend)
+- **PLP_SDK**: [https://github.com/Polyflow-Protocol/PLP_go_sdk](https://github.com/Polyflow-Protocol/PLP_go_sdk)
 
-1. Fork this repository
-2. Create your project folder under `projects`
-3. Add your project documentation (using the template below)
-4. Submit a Pull Request
-5. Wait for on-site review
 
-## Project Documentation Template
+### Smart Contract:
+- **PID** (Payment ID): [https://github.com/Polyflow-Protocol/Demo_PID_Contracts](https://github.com/Polyflow-Protocol/Demo_PID_Contracts)
+- **PLP** (PolyFlow Liquidity Pool): [https://github.com/Polyflow-Protocol/Demo_PLP_Contracts](https://github.com/Polyflow-Protocol/Demo_PLP_Contracts)
+---
 
-Create a `README.md` in your project folder using this template:
+## 📑 Code Structure
+<div align="center">
+  <img src="./images/code_structure_demo_v1.0.jpg" alt="Code Structure">
+</div>
 
-```markdown
-# Project Name
+---
 
-## Overview
-[Describe your project in 2-3 sentences - what it does and what problem it solves]
-
-## Tech Stack
-- Frontend: [List frontend technologies]
-- Backend: [List backend technologies]
-- Other: [Any other relevant technologies]
-
-## Demo
-- Demo Video: [YouTube link]
-- Project Deck: [Google Slides link]
-
-## Team
-- Member A - Role
-- Member B - Role
-- Member C - Role
-```
-
-## Example
-
-```markdown
-# AI Writing Assistant
-
-## Overview
-An intelligent writing assistant powered by GPT-4, helping users generate high-quality content quickly. Supports multiple writing styles and adapts content based on user feedback.
-
-## Tech Stack
-- Frontend: React, TailwindCSS
-- Backend: Node.js, Express
-- AI: OpenAI API, Langchain
-- Deployment: Docker, AWS
-
-## Demo
-- Demo Video: https://youtube.com/watch?v=...
-- Project Deck: https://docs.google.com/presentation/d/...
-
-## Team
-- John Doe - Full Stack Developer
-- Jane Smith - AI Engineer
-- Mike Johnson - Product Designer
-```
-
-- The submission deadline is 10:00 on the 22th, with the following submission requirements:
-    - Project Code
-        - Submit code for review and testing. You need to include at least one open source license from the following:
-        - MIT - https://opensource.org/licenses/MIT
-        - Apache 2.0 - https://opensource.org/licenses/Apache-2.0
-        - 3-Clause BSD - https://opensource.org/licenses/BSD-3-Clause
-        Detailed submission rules will be announced later.
-        We suggest developers focus on creativity and MVP implementation during the Hackerhouse. Time is precious, and you can consider project and code completeness and detailed architecture design later.
-    - Deck
-        - Brief project description, team introduction, etc.
-    - Live Demo & Video (Optional)
-
-## Notes
-- Ensure your documentation follows the template format
-- All links should be accessible
-- Team member information should be complete and accurate
-
-Good luck with your Demo Day! 🚀
+💡 **Stay tuned for updates and innovations!** ✨

@@ -11,6 +11,7 @@ PicWe is revolutionizing the DeFi space by bringing and retaining omni-chain liq
 - 🐳 Deployment: Docker, AWS
 
 ## 🎥 Demo
+- github: https://github.com/Picwe/core-contract.git
 - 📺 Demo Video: https://www.youtube.com/watch?v=YmsmXFNu7Ww
 - 📊 Project Deck: https://docs.google.com/presentation/d/1PJRih2iy2sMd0gasZFWOIfLaV9sgkPeNNvme4OUSKxo/edit?usp=sharing
 
